@@ -1,0 +1,31 @@
+idCancion|idArtista|idAlbum|nombre|duracion|reproducciones|rutaBase
+100010101|10001|01|Chantaje|195|85000000|/users/storage/shakira/audio/
+100010102|10001|01|Me Enamore|214|45000000|/users/storage/shakira/audio/
+100010103|10001|01|Perro Fiel|193|62000000|/users/storage/shakira/audio/
+100010104|10001|01|Nada|219|38000000|/users/storage/shakira/audio/
+100010105|10001|01|Coconut Tree|184|29000000|/users/storage/shakira/audio/
+100020101|10001|02|Ultima|198|12000000|/users/storage/shakira/audio/
+100020102|10001|02|Te Felicito|212|95000000|/users/storage/shakira/audio/
+100020103|10001|02|Monotonia|189|78000000|/users/storage/shakira/audio/
+100020201|10002|01|Rojo|176|95000000|/users/storage/j_balvin/audio/
+100020202|10002|01|Morado|189|78000000|/users/storage/j_balvin/audio/
+100020203|10002|01|Azul|167|71000000|/users/storage/j_balvin/audio/
+100020204|10002|01|Amarillo|201|83000000|/users/storage/j_balvin/audio/
+100020205|10002|01|Verde|178|69000000|/users/storage/j_balvin/audio/
+100030101|10003|01|TQG|203|120000000|/users/storage/karol_g/audio/
+100030102|10003|01|Provenza|164|98000000|/users/storage/karol_g/audio/
+100030103|10003|01|Cairo|186|76000000|/users/storage/karol_g/audio/
+100030104|10003|01|Gatubela|195|88000000|/users/storage/karol_g/audio/
+100030105|10003|01|X Si Volvemos|211|65000000|/users/storage/karol_g/audio/
+100040101|10004|01|Borro Cassette|225|67000000|/users/storage/maluma/audio/
+100040102|10004|01|El Perdedor|234|89000000|/users/storage/maluma/audio/
+100040103|10004|01|Sin Contrato|198|54000000|/users/storage/maluma/audio/
+100040104|10004|01|Carnaval|207|61000000|/users/storage/maluma/audio/
+100050101|10005|01|La Gota Fria|234|45000000|/users/storage/carlos_vives/audio/
+100050102|10005|01|La Tierra del Olvido|198|52000000|/users/storage/carlos_vives/audio/
+100050103|10005|01|Volvi a Nacer|223|38000000|/users/storage/carlos_vives/audio/
+100050104|10005|01|Pa Mayte|189|41000000|/users/storage/carlos_vives/audio/
+100050105|10005|01|Fruta Fresca|176|35000000|/users/storage/carlos_vives/audio/
+100050106|10005|01|Carito|201|39000000|/users/storage/carlos_vives/audio/
+100050107|10005|01|La Casa en el Aire|215|47000000|/users/storage/carlos_vives/audio/
+100050108|10005|01|Déjame Entrar|194|33000000|/users/storage/carlos_vives/audio/

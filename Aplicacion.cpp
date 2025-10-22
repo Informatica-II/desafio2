@@ -25,7 +25,7 @@ void Aplicacion::ejecutar() {
         mostrarMenuPrincipal();
         cout << "Opcion: ";
         cin >> opcion;
-        cin.ignore();
+        cin.ignore();                       // Limpiar el '\n' restante
 
         switch(opcion) {
         case 1:
@@ -166,7 +166,17 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
             cout << "✓ Seguir listas de otros usuarios premium" << endl;
             cout << "✓ Controles avanzados de reproduccion" << endl;
             cout << "\nPrecio: $19,900 COP/mes" << endl;
-            cout << "\n[INFO] Funcionalidad de pago en desarrollo.\n";
+            cout << "¿Deseas subscribirte?"<< endl;
+            cout << "\n 1. Si.\n 2. No."<< endl;
+            cin >> preguntaMembresia;
+            if (preguntaMembresia == "1"){
+                usuarioActual->setTipoMembresia("premium" );
+                cout << usuarioActual->getTipoMembresia()<<endl;
+                cout << "Disfrute de su Membresia, el cobro sera automatico a su tarjeta de credito"<< endl;
+                cout << "Cierre sesión para actualizar membresia" << endl;
+                cin.get();
+            }
+
             cout << "Presione Enter...";
             cin.get();
             break;

@@ -20,12 +20,14 @@ public:
     ~GestorUsuarios();
 
     bool cargarDesdeArchivo(string rutaArchivo);
-    bool guardarEnArchivo(string rutaArchivo);  // <- NUEVO
+    bool guardarEnArchivo(string rutaArchivo);
     Usuario* buscarUsuario(string nickname);
-    bool existeUsuario(string nickname);  // <- NUEVO
+    bool existeUsuario(string nickname);
     void agregarUsuario(Usuario* usuario);
     int getCantidadUsuarios() const;
     void mostrarTodos() const;
+    void cambiarMembresia ();
+
 };
 
 #endif

@@ -1,0 +1,16 @@
+idMensaje|categoria|mensaje
+1|AAA|¡OFERTA ESPECIAL! Hazte Premium por solo $14,900 al mes durante los primeros 3 meses. Disfruta musica sin anuncios y en alta calidad. ¡No esperes mas!
+2|AAA|¿Cansado de los anuncios? Actualiza a Premium hoy y obten acceso ilimitado a mas de 100 millones de canciones en calidad HD. Primera semana GRATIS.
+3|B|Descubre los nuevos lanzamientos de tus artistas favoritos. Actualiza tu biblioteca musical cada viernes con las mejores novedades del momento.
+4|B|¿Sabias que con Premium puedes crear hasta 10,000 canciones favoritas? Organiza tu musica como nunca antes y llevala contigo a donde vayas.
+5|B|Auriculares Beats Solo3 con 50% de descuento para usuarios Premium. Sonido de alta calidad para disfrutar tu musica favorita.
+6|C|Comparte tu musica favorita con amigos y familiares. UdeATunes hace que conectar a traves de la musica sea mas facil que nunca.
+7|C|¿Organizas una fiesta? Crea listas de reproduccion colaborativas y deja que tus invitados agreguen sus canciones favoritas.
+8|AAA|CUPON EXCLUSIVO: Usa el codigo UDEA2025 y obten 2 meses de Premium al precio de 1. Oferta valida solo por tiempo limitado.
+9|C|Sigue a tus artistas favoritos y recibe notificaciones cuando lancen nueva musica. Nunca te pierdas un lanzamiento importante.
+10|B|¿Estudias mejor con musica? Descubre nuestras playlists de concentracion y productividad, perfectas para tus sesiones de estudio.
+11|C|Explora mas de 50 generos musicales diferentes. Desde clasicos hasta lo mas nuevo en electronica y hip hop.
+12|AAA|¡BLACK FRIDAY! Premium a mitad de precio durante todo el año. $9,950 mensuales. Aprovecha esta oferta unica del año.
+13|C|Descarga nuestro modo offline y escucha musica sin conexion. Perfecto para viajes largos y lugares sin internet.
+14|B|Conecta UdeATunes con tus redes sociales y comparte lo que estas escuchando en tiempo real con tus seguidores.
+15|C|Radio personalizada basada en tus gustos musicales. Descubre nuevos artistas similares a tus favoritos.

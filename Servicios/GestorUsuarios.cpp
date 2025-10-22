@@ -127,3 +127,4 @@ void GestorUsuarios::mostrarTodos() const {
     }
     cout << "Total: " << cantidadUsuarios << " usuarios\n" << endl;
 }
+

@@ -9,21 +9,23 @@
 class Aplicacion {
 private:
     GestorUsuarios* gestorUsuarios;
-    GestorCanciones* gestorCanciones;  // <- NUEVO
+    GestorCanciones* gestorCanciones;
     Usuario* usuarioActual;
 
     void cargarDatos();
     void mostrarMenuPrincipal();
     void mostrarMenuUsuarioEstandar();
     void mostrarMenuUsuarioPremium();
-    void reproduccionAleatoriaEstandar();  // <- NUEVO
-    void reproduccionAleatoriaPremium();   // <- NUEVO
-    void reproducirCancion(Cancion* cancion, bool esCalidadAlta);  // <- NUEVO
+    void reproduccionAleatoriaEstandar();
+    void reproduccionAleatoriaPremium();
+    void reproducirCancion(Cancion* cancion, bool esCalidadAlta);
     void login();
     void registrarUsuario();
     void salir();
     void cerrarSesion();
     string obtenerFechaActual();
+    string preguntaMembresia;
+
 
 public:
     Aplicacion();

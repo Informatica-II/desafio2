@@ -1,0 +1,6 @@
+idArtista|nombre|edad|paisOrigen|seguidores|posicionTendencia
+10001|Shakira|47|Colombia|15000000|3
+10002|J Balvin|38|Colombia|12500000|5
+10003|Karol G|33|Colombia|11000000|2
+10004|Maluma|30|Colombia|9500000|8
+10005|Carlos Vives|62|Colombia|7200000|15
