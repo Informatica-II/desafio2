@@ -1,6 +1,3 @@
-# UdeATunes
-
-
 # 🎵 Vive la música con \*\*UdeATunes\*\*
 ---
 
