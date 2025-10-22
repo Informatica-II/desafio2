@@ -1,6 +1,6 @@
 /* --- Lista.cpp --- */
 
-#include "Lista.h"
+#include "modelos/Lista.h"
 
 Lista::Lista() {
     // Constructor

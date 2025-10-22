@@ -5,19 +5,21 @@ CONFIG -= qt
 
 SOURCES += \
         Aplicacion.cpp \
-        Cancion.cpp \
-        GestorCanciones.cpp \
-        GestorUsuarios.cpp \
-        Lista.cpp \
-        Reproductor.cpp \
+        Servicios/GestorCanciones.cpp \
+        Servicios/GestorUsuarios.cpp \
         main.cpp \
-        usuarios.cpp
+        modelos/Cancion.cpp \
+        modelos/Lista.cpp \
+        modelos/Reproductor.cpp \
+        modelos/usuarios.cpp \
+      
 
 HEADERS += \
     Aplicacion.h \
-    Cancion.h \
-    GestorCanciones.h \
-    GestorUsuarios.h \
-    Lista.h \
-    Reproductor.h \
-    usuarios.h
+    Servicios/GestorCanciones.h \
+    Servicios/GestorUsuarios.h \
+    modelos/Cancion.h \
+    modelos/Lista.h \
+    modelos/Reproductor.h \
+    modelos/usuarios.h \
+   

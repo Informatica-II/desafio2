@@ -1,7 +1,7 @@
 #ifndef GESTORCANCIONES_H
 #define GESTORCANCIONES_H
 
-#include "Cancion.h"
+#include "modelos/Cancion.h"
 #include <string>
 
 using namespace std;

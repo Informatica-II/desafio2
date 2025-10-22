@@ -1,7 +1,7 @@
 #ifndef GESTORUSUARIOS_H
 #define GESTORUSUARIOS_H
 
-#include "usuarios.h"
+#include "modelos/usuarios.h"
 #include <string>
 
 using namespace std;

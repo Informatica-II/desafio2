@@ -1,10 +1,10 @@
 #ifndef APLICACION_H
 #define APLICACION_H
 
-#include "GestorUsuarios.h"
-#include "GestorCanciones.h"
-#include "usuarios.h"
-#include "Cancion.h"
+#include "Servicios/GestorUsuarios.h"
+#include "Servicios/GestorCanciones.h"
+#include "modelos/usuarios.h"
+#include "modelos/Cancion.h"
 
 class Aplicacion {
 private:
