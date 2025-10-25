@@ -176,21 +176,27 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
             cin.get();
         }
         case 3:
-            cout << "\n[INFO] Lista de artistas..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
+            cout << "\n=== LISTA DE ARTISTAS ===" << endl;
+            cout << "Total de artistas: " << gestorArtistas->getCantidadArtistas() << endl;
+            cout << "========================================" << endl;
+            gestorArtistas->mostrarOrdenadoPorTendencia();
+            cout << "\nPresione Enter...";
             cin.get();
             break;
         case 4:
-            cout << "\n[INFO] Lista de albumes..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
+            cout << "\n=== LISTA DE ALBUMES ===" << endl;
+            cout << "Total de albumes: " << gestorAlbumes->getCantidadAlbumes() << endl;
+            cout << "========================================" << endl;
+            gestorAlbumes->mostrarTodos();
+            cout << "\nPresione Enter...";
             cin.get();
             break;
         case 5:
-            cout << "\n[INFO] Lista de canciones..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
+            cout << "\n=== TODAS LAS CANCIONES ===" << endl;
+            cout << "Total de canciones: " << gestorCanciones->getCantidadCanciones() << endl;
+            cout << "========================================" << endl;
+            gestorCanciones->mostrarTodas();
+            cout << "\nPresione Enter...";
             cin.get();
             break;
         case 6:
