@@ -10,12 +10,17 @@ using namespace std;
 Aplicacion::Aplicacion() {
     gestorUsuarios = new GestorUsuarios();
     gestorCanciones = new GestorCanciones();
+    gestorArtistas = new GestorArtistas();
+    gestorAlbumes = new GestorAlbumes();
     usuarioActual = nullptr;
     cargarDatos();
 }
 
 Aplicacion::~Aplicacion() {
     delete gestorUsuarios;
+    delete gestorCanciones;
+    delete gestorArtistas;
+    delete gestorAlbumes;
 }
 
 void Aplicacion::ejecutar() {
@@ -55,6 +60,8 @@ void Aplicacion::cargarDatos() {
     cout << "\n[SISTEMA] Cargando datos...\n" << endl;
     gestorUsuarios->cargarDesdeArchivo("data/usuarios.txt");
     gestorCanciones->cargarDesdeArchivo("data/canciones.txt");
+    gestorArtistas->cargarDesdeArchivo("data/artistas.txt");      // NUEVO
+    gestorAlbumes->cargarDesdeArchivo("data/albunes.txt");
     cout << endl;
 }
 
@@ -109,7 +116,7 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
 
         cout << "\n--- MI CUENTA ---" << endl;
         cout << "6. Ver mi informacion" << endl;
-        cout << "7. ¡Hazte Premium! ($19,900/mes)" << endl;
+        cout << "7. Hazte Premium! ($19,900/mes)" << endl;
 
         cout << "\n8. Cerrar sesion" << endl;
         cout << "0. Salir de la aplicacion" << endl;
@@ -127,11 +134,47 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
             cin.get();
             break;
         case 2:
-            cout << "\n[INFO] Buscar cancion..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
+        {
+            string idInput;
+            cout << "\n=== BUSCAR CANCION POR ID ===" << endl;
+            cout << "Ingrese el ID de la cancion: ";
+            getline(cin, idInput);
+
+            long idCancion;
+            try {
+                idCancion = stol(idInput);
+            } catch (...) {
+                cout << "\n[ERROR] ID invalido. Debe ser un numero." << endl;
+                cout << "Presione Enter...";
+                cin.get();
+                break;
+            }
+
+            Cancion* cancion = gestorCanciones->buscarPorId(idCancion);
+
+            if (cancion != nullptr) {
+                cout << "\n=== CANCION ENCONTRADA ===" << endl;
+                cancion->mostrarInfo();
+
+                cout << "\n¿Que desea hacer?" << endl;
+                cout << "1. Reproducir" << endl;
+                cout << "0. Volver al menu" << endl;
+                cout << "Opcion: ";
+
+                int subOpcion;
+                cin >> subOpcion;
+                cin.ignore();
+
+                if (subOpcion == 1) {
+                    reproducirCancion(cancion, true);
+                }
+             else {
+                cout << "\n[ERROR] No se encontro ninguna cancion con ese ID." << endl;
+            }
+        }
+            cout << "\nPresione Enter...";
             cin.get();
-            break;
+        }
         case 3:
             cout << "\n[INFO] Lista de artistas..." << endl;
             cout << "Funcionalidad en desarrollo.\n";
@@ -160,11 +203,11 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
             cout << "        ¡HAZTE PREMIUM HOY!             " << endl;
             cout << "========================================" << endl;
             cout << "\nBeneficios Premium:" << endl;
-            cout << "✓ Sin anuncios publicitarios" << endl;
-            cout << "✓ Calidad de audio HD (320 kbps)" << endl;
-            cout << "✓ Lista de favoritos (hasta 10,000 canciones)" << endl;
-            cout << "✓ Seguir listas de otros usuarios premium" << endl;
-            cout << "✓ Controles avanzados de reproduccion" << endl;
+            cout << "Sin anuncios publicitarios" << endl;
+            cout << "Calidad de audio HD (320 kbps)" << endl;
+            cout << "Lista de favoritos (hasta 10,000 canciones)" << endl;
+            cout << "Seguir listas de otros usuarios premium" << endl;
+            cout << "Controles avanzados de reproduccion" << endl;
             cout << "\nPrecio: $19,900 COP/mes" << endl;
             cout << "¿Deseas subscribirte?"<< endl;
             cout << "\n 1. Si.\n 2. No."<< endl;
@@ -172,6 +215,7 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
             if (preguntaMembresia == "1"){
                 usuarioActual->setTipoMembresia("premium" );
                 cout << usuarioActual->getTipoMembresia()<<endl;
+                gestorUsuarios->guardarEnArchivo("data/usuarios.txt");
                 cout << "Disfrute de su Membresia, el cobro sera automatico a su tarjeta de credito"<< endl;
                 cout << "Cierre sesión para actualizar membresia" << endl;
                 cin.get();
@@ -208,7 +252,7 @@ void Aplicacion::mostrarMenuUsuarioPremium() {
 
         cout << "\n========================================" << endl;
         cout << "          U d e A T u n e s             " << endl;
-        cout << "         ⭐ USUARIO PREMIUM ⭐          " << endl;
+        cout << "           USUARIO PREMIUM          " << endl;
         cout << "========================================" << endl;
         cout << "\nBienvenido: " << usuarioActual->getNickname() << endl;
         cout << "Ciudad: " << usuarioActual->getCiudad() << ", " << usuarioActual->getPais() << endl;
@@ -245,71 +289,127 @@ void Aplicacion::mostrarMenuUsuarioPremium() {
 
         switch(opcion) {
         case 1:
-            cout << "\n[INFO] Reproduccion aleatoria Premium..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
+            cout <<"Reproduccion Aleatoria..."<<endl;
             reproduccionAleatoriaPremium();
-            cout << "Presione Enter...";
-            cin.get();
+
             break;
+
         case 2:
-            cout << "\n[INFO] Lista de favoritos..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
-            cin.get();
+            cout << "TUS FAVORITOS"<<endl;
+            verMisFavoritos();
+
             break;
+
         case 3:
-            cout << "\n[INFO] Agregar a favoritos..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
-            cin.get();
+            cout << "AGREGAR CANCION A FAVORITOS"<<endl;
+            agregarAFavoritos();
+
             break;
+
         case 4:
-            cout << "\n[INFO] Eliminar de favoritos..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
-            cin.get();
+            cout<<"ELIMINAR CANCION DE FAVORITOS"<<endl;
+            eliminarDeFavoritos();
+
             break;
+
         case 5:
-            cout << "\n[INFO] Seguir lista de usuario..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
-            cin.get();
+            cout<<"SEGUIR A OTRO USUARIO"<<endl;
+            seguirUsuario();
+
             break;
+
         case 6:
-            cout << "\n[INFO] Reproducir favoritos..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
-            cin.get();
+            cout<<"REPRODUCIR MIS FAVORITOS"<<endl;
+            reproducirMisFavoritos();
+
             break;
+
         case 7:
-            cout << "\n[INFO] Buscar cancion..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
+        {
+            string idInput;
+            cout << "\n=== BUSCAR CANCION POR ID ===" << endl;
+            cout << "Ingrese el ID de la cancion: ";
+            getline(cin, idInput);
+
+            long idCancion;
+            try {
+                idCancion = stol(idInput);
+            } catch (...) {
+                cout << "\n[ERROR] ID invalido. Debe ser un numero." << endl;
+                cout << "Presione Enter...";
+                cin.get();
+                break;
+            }
+
+            Cancion* cancion = gestorCanciones->buscarPorId(idCancion);
+
+            if (cancion != nullptr) {
+                cout << "\n=== CANCION ENCONTRADA ===" << endl;
+                cancion->mostrarInfo();
+
+                cout << "\n¿Que desea hacer?" << endl;
+                cout << "1. Reproducir" << endl;
+                cout << "2. Agregar a favoritos" << endl;
+                cout << "0. Volver al menu" << endl;
+                cout << "Opcion: ";
+
+                int subOpcion;
+                cin >> subOpcion;
+                cin.ignore();
+
+                if (subOpcion == 1) {
+                    reproducirCancion(cancion, true);
+                } else if (subOpcion == 2) {
+                    if (usuarioActual->getListaFavoritos()->agregarCancion(idCancion)) {
+                        string rutaFavoritos = "data/favoritos_" + usuarioActual->getNickname() + ".txt";
+                        usuarioActual->getListaFavoritos()->guardarEnArchivo(rutaFavoritos);
+                        cout << "\n[EXITO] Cancion agregada a favoritos!" << endl;
+                    } else {
+                        cout << "\n[ERROR] La cancion ya esta en favoritos." << endl;
+                    }
+                }
+            } else {
+                cout << "\n[ERROR] No se encontro ninguna cancion con ese ID." << endl;
+            }
+
+            cout << "\nPresione Enter...";
             cin.get();
-            break;
+        }
+        break;
+
         case 8:
-            cout << "\n[INFO] Lista de artistas..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
+            cout << "\n=== LISTA DE ARTISTAS ===" << endl;
+            cout << "Total de artistas: " << gestorArtistas->getCantidadArtistas() << endl;
+            cout << "========================================" << endl;
+            gestorArtistas->mostrarOrdenadoPorTendencia();
+            cout << "\nPresione Enter...";
             cin.get();
             break;
+
         case 9:
-            cout << "\n[INFO] Lista de albumes..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
+            cout << "\n=== LISTA DE ALBUMES ===" << endl;
+            cout << "Total de albumes: " << gestorAlbumes->getCantidadAlbumes() << endl;
+            cout << "========================================" << endl;
+            gestorAlbumes->mostrarTodos();
+            cout << "\nPresione Enter...";
             cin.get();
             break;
+
         case 10:
-            cout << "\n[INFO] Lista de canciones..." << endl;
-            cout << "Funcionalidad en desarrollo.\n";
-            cout << "Presione Enter...";
+            cout << "\n=== TODAS LAS CANCIONES ===" << endl;
+            cout << "Total de canciones: " << gestorCanciones->getCantidadCanciones() << endl;
+            cout << "========================================" << endl;
+            gestorCanciones->mostrarTodas();
+            cout << "\nPresione Enter...";
             cin.get();
             break;
+
         case 11:
             usuarioActual->mostrarInfo();
             cout << "Presione Enter...";
             cin.get();
             break;
+
         case 12:
             cerrarSesion();
             return;
@@ -340,7 +440,16 @@ void Aplicacion::login() {
     if (usuario != nullptr) {
         if (usuario->validarContrasena(contrasena)) {
             usuarioActual = usuario;
-            cout << "\n¡Login exitoso!" << endl;
+
+            // CARGAR FAVORITOS Y SEGUIDOS (solo para premium)
+            if (usuarioActual->esPremium()) {
+                string rutaFavoritos = "data/favoritos_" + nickname + ".txt";
+                string rutaSeguidos = "data/seguidos_" + nickname + ".txt";
+
+                usuarioActual->getListaFavoritos()->cargarDesdeArchivo(rutaFavoritos);
+                usuarioActual->getGestorSeguimiento()->cargarDesdeArchivo(rutaSeguidos);
+            }
+            cout << "\nLogin exitoso!" << endl;
             cout << "Redirigiendo..." << endl;
 
 // Pequeña pausa
@@ -465,7 +574,7 @@ void Aplicacion::salir() {
 }
 
 void Aplicacion::reproducirCancion(Cancion* cancion, bool esCalidadAlta) {
-    cout << "\n♪♫ REPRODUCIENDO ♫♪" << endl;
+    cout << "\n REPRODUCIENDO " << endl;
     cout << "================================" << endl;
     cout << "Cancion: " << cancion->getNombre() << endl;
     cout << "Duracion: " << cancion->formatearDuracion() << endl;
@@ -518,14 +627,14 @@ void Aplicacion::reproduccionAleatoriaEstandar() {
         cout << "Reproduciendo";
         for (int j = 0; j < 3; j++) {
             cout << ".";
-            cout.flush();
+
 #ifdef _WIN32
             system("timeout /t 1 >nul");
 #else
             system("sleep 1");
 #endif
         }
-        cout << " ✓\n" << endl;
+        cout << " \n" << endl;
     }
 
     cout << "\n=== REPRODUCCION FINALIZADA ===" << endl;
@@ -534,10 +643,10 @@ void Aplicacion::reproduccionAleatoriaEstandar() {
     cin.get();
 }
 
-// NUEVO MÉTODO:
+// METODOS PREMIUM:
 void Aplicacion::reproduccionAleatoriaPremium() {
     cout << "\n=== REPRODUCCION ALEATORIA (PREMIUM) ===" << endl;
-    cout << "⭐ Calidad: 320 kbps HD | Sin publicidad ⭐" << endl;
+    cout << " Calidad: 320 kbps HD | Sin publicidad " << endl;
     cout << "Reproduciendo 5 canciones...\n" << endl;
 
     int totalCanciones = 5;
@@ -570,5 +679,276 @@ void Aplicacion::reproduccionAleatoriaPremium() {
     cout << "\n=== REPRODUCCION FINALIZADA ===" << endl;
     cout << "Total reproducido: " << totalCanciones << " canciones" << endl;
     cout << "\nPresione Enter...";
+    cin.get();
+}
+
+void Aplicacion::agregarAFavoritos() {
+    string idInput;
+
+    cout << "\n=== AGREGAR CANCION A FAVORITOS ===" << endl;
+    cout << "Ingrese el ID de la cancion: ";
+    getline(cin, idInput);
+
+    long idCancion;
+    try {
+        idCancion = stol(idInput);
+    } catch (...) {
+        cout << "\n[ERROR] ID invalido. Debe ser un numero." << endl;
+        cout << "Presione Enter...";
+        cin.get();
+        return;
+    }
+
+    Cancion* cancion = gestorCanciones->buscarPorId(idCancion);
+
+    if (cancion == nullptr) {
+        cout << "\n[ERROR] No se encontro ninguna cancion con el ID: " << idCancion << endl;
+        cout << "Presione Enter...";
+        cin.get();
+        return;
+    }
+
+    cout << "\n=== CANCION ENCONTRADA ===" << endl;
+    cancion->mostrarInfo();
+
+    cout << "\nQue desea hacer?" << endl;
+    cout << "1. Agregar a favoritos" << endl;
+    cout << "2. Reproducir esta cancion" << endl;
+    cout << "0. Cancelar" << endl;
+    cout << "Opcion: ";
+
+    int opcion;
+    cin >> opcion;
+    cin.ignore();
+
+    switch(opcion) {
+    case 1:
+        if (usuarioActual->getListaFavoritos()->agregarCancion(idCancion)) {
+            string rutaFavoritos = "data/favoritos_" + usuarioActual->getNickname() + ".txt";
+
+            if (usuarioActual->getListaFavoritos()->guardarEnArchivo(rutaFavoritos)) {
+                cout << "\n[EXITO] Cancion agregada a favoritos!" << endl;
+                cout << "Total: " << usuarioActual->getListaFavoritos()->getCantidadCanciones()
+                     << " / 10,000" << endl;
+            } else {
+                cout << "\n[ERROR] No se pudo guardar en el archivo." << endl;
+            }
+        } else {
+            cout << "\n[ERROR] La cancion ya esta en favoritos o alcanzaste el limite." << endl;
+        }
+        break;
+
+    case 2:
+        reproducirCancion(cancion, true);
+        break;
+
+    case 0:
+        cout << "\nOperacion cancelada." << endl;
+        break;
+    }
+
+    cout << "\nPresione Enter...";
+    cin.get();
+}
+
+void Aplicacion::verMisFavoritos() {
+    cout << "\n=== MI LISTA DE FAVORITOS ===" << endl;
+
+    ListaFavoritos* favoritos = usuarioActual->getListaFavoritos();
+
+    if (favoritos->getCantidadCanciones() == 0) {
+        cout << "No tienes canciones en favoritos aun." << endl;
+    } else {
+        cout << "Total: " << favoritos->getCantidadCanciones() << " / 10,000\n" << endl;
+
+        vector<long> ids = favoritos->getIdsCanciones();
+
+        for (size_t i = 0; i < ids.size(); i++) {
+            Cancion* cancion = gestorCanciones->buscarPorId(ids[i]);
+
+            if (cancion != nullptr) {
+                cout << "----------------------------------------" << endl;
+                cout << "[" << (i + 1) << "] ";
+                cancion->mostrarInfo();
+            }
+        }
+        cout << "----------------------------------------" << endl;
+    }
+
+    cout << "\nPresione Enter...";
+    cin.get();
+}
+
+void Aplicacion::eliminarDeFavoritos() {
+    string idInput;
+
+    cout << "\n=== ELIMINAR CANCION DE FAVORITOS ===" << endl;
+
+    ListaFavoritos* favoritos = usuarioActual->getListaFavoritos();
+
+    if (favoritos->getCantidadCanciones() == 0) {
+        cout << "No tienes canciones en favoritos." << endl;
+        cout << "Presione Enter...";
+        cin.get();
+        return;
+    }
+
+    cout << "Tus canciones favoritas:\n" << endl;
+    vector<long> ids = favoritos->getIdsCanciones();
+
+    for (size_t i = 0; i < ids.size(); i++) {
+        Cancion* c = gestorCanciones->buscarPorId(ids[i]);
+        if (c != nullptr) {
+            cout << "[" << (i + 1) << "] ID: " << ids[i]
+                 << " - " << c->getNombre() << endl;
+        }
+    }
+
+    cout << "\nIngrese el ID de la cancion a eliminar: ";
+    getline(cin, idInput);
+
+    long idCancion;
+    try {
+        idCancion = stol(idInput);
+    } catch (...) {
+        cout << "\n[ERROR] ID invalido." << endl;
+        cout << "Presione Enter...";
+        cin.get();
+        return;
+    }
+
+    if (favoritos->eliminarCancion(idCancion)) {
+        string rutaFavoritos = "data/favoritos_" + usuarioActual->getNickname() + ".txt";
+        favoritos->guardarEnArchivo(rutaFavoritos);
+        cout << "\n[EXITO] Cancion eliminada de favoritos." << endl;
+    } else {
+        cout << "\n[ERROR] No se encontro esa cancion en tus favoritos." << endl;
+    }
+
+    cout << "Presione Enter...";
+    cin.get();
+}
+
+void Aplicacion::seguirUsuario() {
+    string nicknameASeguir;
+
+    cout << "\n=== SEGUIR LISTA DE OTRO USUARIO ===" << endl;
+    cout << "Ingrese el nickname del usuario: ";
+    getline(cin, nicknameASeguir);
+
+    // Verificar que no se siga a sí mismo
+    if (nicknameASeguir == usuarioActual->getNickname()) {
+        cout << "\n[ERROR] No puedes seguirte a ti mismo." << endl;
+        cout << "Presione Enter...";
+        cin.get();
+        return;
+    }
+
+    Usuario* usuarioSeguir = gestorUsuarios->buscarUsuario(nicknameASeguir);
+
+    if (usuarioSeguir == nullptr) {
+        cout << "\n[ERROR] El usuario no existe." << endl;
+        cout << "Presione Enter...";
+        cin.get();
+        return;
+    }
+
+    if (!usuarioSeguir->esPremium()) {
+        cout << "\n[ERROR] Solo puedes seguir usuarios Premium." << endl;
+        cout << "Presione Enter...";
+        cin.get();
+        return;
+    }
+
+    GestorSeguimiento* gestor = usuarioActual->getGestorSeguimiento();
+
+    if (gestor->seguirUsuario(nicknameASeguir)) {
+        string rutaSeguidos = "data/seguidos_" + usuarioActual->getNickname() + ".txt";
+        gestor->guardarEnArchivo(rutaSeguidos);
+        cout << "\n[EXITO] Ahora sigues a " << nicknameASeguir << endl;
+    } else {
+        cout << "\n[ERROR] Ya sigues a este usuario." << endl;
+    }
+
+    cout << "Presione Enter...";
+    cin.get();
+}
+
+void Aplicacion::reproducirMisFavoritos() {
+    cout << "\n=== REPRODUCIR FAVORITOS ===" << endl;
+
+    vector<Cancion*> todasCanciones;
+
+    // Mis favoritos
+    vector<long> misFavoritos = usuarioActual->getListaFavoritos()->getIdsCanciones();
+    for (size_t i = 0; i < misFavoritos.size(); i++) {
+        Cancion* c = gestorCanciones->buscarPorId(misFavoritos[i]);
+        if (c != nullptr) {
+            todasCanciones.push_back(c);
+        }
+    }
+
+    // Favoritos de usuarios seguidos
+    vector<string> seguidos = usuarioActual->getGestorSeguimiento()->getUsuariosSeguidos();
+    for (size_t i = 0; i < seguidos.size(); i++) {
+        Usuario* usuarioSeguido = gestorUsuarios->buscarUsuario(seguidos[i]);
+        if (usuarioSeguido != nullptr && usuarioSeguido->esPremium()) {
+            vector<long> favoritosSeguido = usuarioSeguido->getListaFavoritos()->getIdsCanciones();
+            for (size_t j = 0; j < favoritosSeguido.size(); j++) {
+                Cancion* c = gestorCanciones->buscarPorId(favoritosSeguido[j]);
+                if (c != nullptr) {
+                    todasCanciones.push_back(c);
+                }
+            }
+        }
+    }
+
+    if (todasCanciones.empty()) {
+        cout << "No hay canciones para reproducir." << endl;
+        cout << "Presione Enter...";
+        cin.get();
+        return;
+    }
+
+    cout << "Total de canciones: " << todasCanciones.size() << endl;
+    cout << "\nModo de reproduccion:" << endl;
+    cout << "1. Orden original" << endl;
+    cout << "2. Aleatorio" << endl;
+    cout << "Opcion: ";
+
+    int modo;
+    cin >> modo;
+    cin.ignore();
+
+    if (modo == 2) {
+        srand(time(0));
+        for (size_t i = todasCanciones.size() - 1; i > 0; i--) {
+            int j = rand() % (i + 1);
+            swap(todasCanciones[i], todasCanciones[j]);
+        }
+        cout << "\n🔀 Reproduccion aleatoria\n" << endl;
+    } else {
+        cout << "\n▶️ Reproduccion en orden\n" << endl;
+    }
+
+    for (size_t i = 0; i < todasCanciones.size(); i++) {
+        cout << "\n--- Cancion " << (i + 1) << " de " << todasCanciones.size() << " ---" << endl;
+        reproducirCancion(todasCanciones[i], true);
+
+        cout << "Reproduciendo";
+        for (int j = 0; j < 3; j++) {
+            cout << ".";
+            cout.flush();
+#ifdef _WIN32
+            system("timeout /t 1 >nul");
+#else
+            system("sleep 1");
+#endif
+        }
+        cout << " ✓\n" << endl;
+    }
+
+    cout << "\n=== REPRODUCCION FINALIZADA ===" << endl;
+    cout << "Presione Enter...";
     cin.get();
 }

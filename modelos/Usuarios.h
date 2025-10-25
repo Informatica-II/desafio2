@@ -3,13 +3,21 @@
 
 #include <string>
 #include <iostream>
+#include "modelos/listafavoritos.h"
+#include "Servicios/gestorseguimiento.h"
+
 
 using namespace std;
 
 class Usuario {
+
+private:
+    ListaFavoritos* listaFavoritos;
+    GestorSeguimiento* gestorSeguimiento;
+
 protected:
     string nickname;
-    string contrasena;        // <- NUEVO
+    string contrasena;
     string tipoMembresia;
     string ciudad;
     string pais;
@@ -22,15 +30,17 @@ public:
 
     // Getters
     string getNickname() const;
-    string getContrasena() const;  // <- NUEVO
+    string getContrasena() const;
     string getTipoMembresia() const;
     string getCiudad() const;
     string getPais() const;
     string getFechaInscripcion() const;
+    ListaFavoritos* getListaFavoritos();
+    GestorSeguimiento* getGestorSeguimiento();
 
     // Setters
     void setNickname(string nick);
-    void setContrasena(string pass);  // <- NUEVO
+    void setContrasena(string pass);
     void setTipoMembresia(string tipo);
     void setCiudad(string city);
     void setPais(string country);
@@ -38,7 +48,7 @@ public:
 
     // Métodos
     bool esPremium() const;
-    bool validarContrasena(string pass) const;  // <- NUEVO
+    bool validarContrasena(string pass) const;
     void mostrarInfo() const;
 };
 

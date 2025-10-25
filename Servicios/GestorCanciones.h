@@ -18,9 +18,10 @@ private:
 public:
     GestorCanciones();
     ~GestorCanciones();
+    Cancion* buscarPorId(long id);
 
     bool cargarDesdeArchivo(string rutaArchivo);
-    Cancion* buscarCancion(long idCancion);
+    Cancion* buscarCancion(string nombreCancion);
     Cancion* obtenerCancionAleatoria();
     void agregarCancion(Cancion* cancion);
     int getCantidadCanciones() const;

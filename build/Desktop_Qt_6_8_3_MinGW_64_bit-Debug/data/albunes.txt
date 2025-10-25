@@ -1,7 +1,7 @@
 idAlbum|idArtista|nombre|fechaLanzamiento|duracionTotal|generos|selloDisquero|puntuacion|rutaPortada
 01|10001|El Dorado|2017-05-26|2640|Pop,Latina|Sony Music|9|/users/storage/shakira/image/el_dorado.png
 02|10001|Las Mujeres Ya No Lloran|2024-03-22|2880|Pop,Latina|Sony Music|8|/users/storage/shakira/image/las_mujeres.png
-01|10002|Colores|2020-03-19|2520|Reggae,Latina,Hip Hop|Universal|8|/users/storage/j_balvin/image/colores.png
-01|10003|Manana Sera Bonito|2023-02-24|3120|Reggae,Latina,Pop|Universal|9|/users/storage/karol_g/image/manana_sera_bonito.png
-01|10004|Pretty Boy Dirty Boy|2015-08-28|2400|Reggae,Pop,Latina|Sony Music|7|/users/storage/maluma/image/pretty_boy.png
-01|10005|Clasicos de la Provincia|1993-12-15|2760|Latina,Pop|Sony Music|10|/users/storage/carlos_vives/image/clasicos.png
+03|10002|Colores|2020-03-19|2520|Reggae,Latina,Hip Hop|Universal|8|/users/storage/j_balvin/image/colores.png
+04|10003|Manana Sera Bonito|2023-02-24|3120|Reggae,Latina,Pop|Universal|9|/users/storage/karol_g/image/manana_sera_bonito.png
+05|10004|Pretty Boy Dirty Boy|2015-08-28|2400|Reggae,Pop,Latina|Sony Music|7|/users/storage/maluma/image/pretty_boy.png
+06|10005|Clasicos de la Provincia|1993-12-15|2760|Latina,Pop|Sony Music|10|/users/storage/carlos_vives/image/clasicos.png

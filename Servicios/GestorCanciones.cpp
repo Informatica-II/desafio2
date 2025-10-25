@@ -79,14 +79,17 @@ bool GestorCanciones::cargarDesdeArchivo(string rutaArchivo) {
     return true;
 }
 
-Cancion* GestorCanciones::buscarCancion(long idCancion) {
+Cancion* GestorCanciones::buscarCancion(string nombreCancion) {
     for (int i = 0; i < cantidadCanciones; i++) {
-        if (canciones[i]->getIdCancion() == idCancion) {
+        if (canciones[i]->getNombre() == nombreCancion) {
+            cout<<"cancion encontrada."<< endl;
             return canciones[i];
         }
+
     }
     return nullptr;
 }
+
 
 Cancion* GestorCanciones::obtenerCancionAleatoria() {
     cout << "[DEBUG] Cantidad de canciones disponibles: " << cantidadCanciones << endl;
@@ -119,3 +122,13 @@ void GestorCanciones::mostrarTodas() const {
     }
     cout << "Total: " << cantidadCanciones << " canciones\n" << endl;
 }
+
+Cancion* GestorCanciones::buscarPorId(long id) {
+    for (int i = 0; i < cantidadCanciones; i++) {
+        if (canciones[i]->getIdCancion() == id) {
+            return canciones[i];
+        }
+    }
+    return nullptr;
+}
+

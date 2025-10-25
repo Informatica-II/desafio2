@@ -1,4 +1,5 @@
-#include "modelos/usuarios.h"
+#include "modelos/Usuarios.h"
+#include <iostream>
 
 using namespace std;
 
@@ -9,6 +10,9 @@ Usuario::Usuario() {
     ciudad = "";
     pais = "";
     fechaInscripcion = "";
+
+    listaFavoritos = nullptr;
+    gestorSeguimiento = nullptr;
 }
 
 Usuario::Usuario(string nick, string pass, string tipo, string city, string country, string fecha) {
@@ -18,10 +22,29 @@ Usuario::Usuario(string nick, string pass, string tipo, string city, string coun
     ciudad = city;
     pais = country;
     fechaInscripcion = fecha;
+
+    //SOLO SI ES PREMIUM TIENE FAVORITOS
+   if (tipoMembresia == "premium") {
+    listaFavoritos = new ListaFavoritos();
+    gestorSeguimiento = new GestorSeguimiento();
+      } else {
+    listaFavoritos = nullptr;
+    gestorSeguimiento = nullptr;
+      }
 }
 
 Usuario::~Usuario() {
-    // Destructor
+
+    //Destructor de memoria
+    if (listaFavoritos != nullptr) {
+        delete listaFavoritos;
+        listaFavoritos = nullptr;
+    }
+
+    if (gestorSeguimiento != nullptr) {
+        delete gestorSeguimiento;
+        gestorSeguimiento = nullptr;
+    }
 }
 
 // Getters
@@ -49,6 +72,13 @@ string Usuario::getFechaInscripcion() const {
     return fechaInscripcion;
 }
 
+ListaFavoritos* Usuario::getListaFavoritos() {
+    return listaFavoritos;
+}
+
+GestorSeguimiento* Usuario::getGestorSeguimiento() {
+    return gestorSeguimiento;
+}
 // Setters
 void Usuario::setNickname(string nick) {
     nickname = nick;
@@ -91,3 +121,4 @@ void Usuario::mostrarInfo() const {
     cout << "Fecha inscripcion: " << fechaInscripcion << endl;
     cout << "================================\n" << endl;
 }
+

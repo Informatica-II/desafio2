@@ -5,5 +5,5 @@ carlos99|carlos789|premium|Cali|Colombia|2024-02-10
 ana_musik|ana2024|premium|Barranquilla|Colombia|2024-04-05
 pedro_beats|pedro555|estandar|Cartagena|Colombia|2024-05-12
 Andres147|Sergio123|premium|Medellin|Colombia|2025-10-21
-checho|123|estandar|Medellin|Colombia|2025-10-22
+checho|123|premium|Medellin|Colombia|2025-10-22
 anibal|123|estandar|medellin|colombia|2025-10-22

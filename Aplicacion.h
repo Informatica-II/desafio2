@@ -3,14 +3,20 @@
 
 #include "Servicios/GestorUsuarios.h"
 #include "Servicios/GestorCanciones.h"
-#include "modelos/usuarios.h"
+#include "modelos/Usuarios.h"
 #include "modelos/Cancion.h"
+#include "Servicios/GestorArtistas.h"
+#include "Servicios/GestorAlbumes.h"
+
 
 class Aplicacion {
 private:
     GestorUsuarios* gestorUsuarios;
     GestorCanciones* gestorCanciones;
+    GestorArtistas* gestorArtistas;
+    GestorAlbumes* gestorAlbumes;
     Usuario* usuarioActual;
+    string preguntaMembresia;
 
     void cargarDatos();
     void mostrarMenuPrincipal();
@@ -24,13 +30,26 @@ private:
     void salir();
     void cerrarSesion();
     string obtenerFechaActual();
-    string preguntaMembresia;
+
 
 
 public:
+
     Aplicacion();
     ~Aplicacion();
     void ejecutar();
+
+    //MÉTODOS PARA FAVORITOS:
+    void agregarAFavoritos();
+    void verMisFavoritos();
+    void eliminarDeFavoritos();
+    void reproducirMisFavoritos();
+
+    // MÉTODOS PARA SEGUIMIENTO:
+    void seguirUsuario();
+    void verUsuariosSeguidos();
+    void dejarDeSeguirUsuario();
+
 };
 
 #endif
