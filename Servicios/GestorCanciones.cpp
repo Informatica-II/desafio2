@@ -118,7 +118,7 @@ void GestorCanciones::mostrarTodas() const {
     cout << "\n=== CATALOGO DE CANCIONES ===" << endl;
     for (int i = 0; i < cantidadCanciones; i++) {
         cout << (i + 1) << ". " << canciones[i]->getNombre()
-        << " (" << canciones[i]->formatearDuracion() << ")" << endl;
+             << " (" << canciones[i]->formatearDuracion() << ")" << "\tID: "<<canciones[i]->getIdCancion()<<endl;
     }
     cout << "Total: " << cantidadCanciones << " canciones\n" << endl;
 }

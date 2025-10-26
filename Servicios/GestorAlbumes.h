@@ -14,7 +14,7 @@ private:
 
     void redimensionar();
     void dividirLinea(string linea, string* datos);
-    vector<string> dividirGeneros(const string& generos);
+    void dividirGeneros(const string& generos, string* resultado, int& cantidad);
 
 public:
     GestorAlbumes();

@@ -7,7 +7,11 @@
 #include "modelos/Cancion.h"
 #include "Servicios/GestorArtistas.h"
 #include "Servicios/GestorAlbumes.h"
+#include "Servicios/GestorPublicidades.h"
+#include "modelos/Publicidad.h"
 
+#include <chrono>
+#include <thread>
 
 class Aplicacion {
 private:
@@ -15,6 +19,7 @@ private:
     GestorCanciones* gestorCanciones;
     GestorArtistas* gestorArtistas;
     GestorAlbumes* gestorAlbumes;
+    GestorPublicidades* gestorPublicidades;
     Usuario* usuarioActual;
     string preguntaMembresia;
 
@@ -25,6 +30,12 @@ private:
     void reproduccionAleatoriaEstandar();
     void reproduccionAleatoriaPremium();
     void reproducirCancion(Cancion* cancion, bool esCalidadAlta);
+    void pausarConTemporizador(int segundos);
+    void reproducirConControlesPremium(Cancion** listaCanciones, int totalCanciones);
+    void mostrarControlesPremium();
+    bool procesarComandoReproduccion(char comando, int& indiceActual, int totalCanciones,
+                                     bool& modoRepetir, bool& continuar, int* historial,
+                                     int& cantidadHistorial);
     void login();
     void registrarUsuario();
     void salir();

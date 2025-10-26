@@ -2,6 +2,7 @@ release/Aplicacion.o
 release/GestorAlbumes.o
 release/GestorArtistas.o
 release/GestorCanciones.o
+release/GestorPublicidades.o
 release/GestorSeguimiento.o
 release/GestorUsuarios.o
 release/main.o
@@ -10,5 +11,6 @@ release/Artista.o
 release/Cancion.o
 release/Lista.o
 release/ListaFavoritos.o
+release/Publicidad.o
 release/Reproductor.o
 release/Usuarios.o

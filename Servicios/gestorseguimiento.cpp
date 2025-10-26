@@ -3,11 +3,25 @@
 #include <iostream>
 
 GestorSeguimiento::GestorSeguimiento() {
-    // Constructor vacío
+    capacidad = 10;
+    cantidadSeguidos = 0;
+    usuariosSeguidos = new string[capacidad];
 }
 
 GestorSeguimiento::~GestorSeguimiento() {
-    // Destructor vacío
+    delete[] usuariosSeguidos;
+}
+
+void GestorSeguimiento::redimensionar() {
+    capacidad *= 2;
+    string* nuevo = new string[capacidad];
+
+    for (int i = 0; i < cantidadSeguidos; i++) {
+        nuevo[i] = usuariosSeguidos[i];
+    }
+
+    delete[] usuariosSeguidos;
+    usuariosSeguidos = nuevo;
 }
 
 bool GestorSeguimiento::seguirUsuario(const string& nickname) {
@@ -16,14 +30,24 @@ bool GestorSeguimiento::seguirUsuario(const string& nickname) {
         return false;
     }
 
-    usuariosSeguidos.push_back(nickname);
+    // Redimensionar si es necesario
+    if (cantidadSeguidos >= capacidad) {
+        redimensionar();
+    }
+
+    usuariosSeguidos[cantidadSeguidos] = nickname;
+    cantidadSeguidos++;
     return true;
 }
 
 bool GestorSeguimiento::dejarDeSeguir(const string& nickname) {
-    for (size_t i = 0; i < usuariosSeguidos.size(); i++) {
+    for (int i = 0; i < cantidadSeguidos; i++) {
         if (usuariosSeguidos[i] == nickname) {
-            usuariosSeguidos.erase(usuariosSeguidos.begin() + i);
+            // Desplazar elementos a la izquierda
+            for (int j = i; j < cantidadSeguidos - 1; j++) {
+                usuariosSeguidos[j] = usuariosSeguidos[j + 1];
+            }
+            cantidadSeguidos--;
             return true;
         }
     }
@@ -31,7 +55,7 @@ bool GestorSeguimiento::dejarDeSeguir(const string& nickname) {
 }
 
 bool GestorSeguimiento::estaSiguiendo(const string& nickname) const {
-    for (size_t i = 0; i < usuariosSeguidos.size(); i++) {
+    for (int i = 0; i < cantidadSeguidos; i++) {
         if (usuariosSeguidos[i] == nickname) {
             return true;
         }
@@ -40,29 +64,29 @@ bool GestorSeguimiento::estaSiguiendo(const string& nickname) const {
 }
 
 int GestorSeguimiento::getCantidadSeguidos() const {
-    return usuariosSeguidos.size();
+    return cantidadSeguidos;
 }
 
-vector<string> GestorSeguimiento::getUsuariosSeguidos() const {
+string* GestorSeguimiento::getUsuariosSeguidos() const {
     return usuariosSeguidos;
 }
 
 void GestorSeguimiento::limpiar() {
-    usuariosSeguidos.clear();
+    cantidadSeguidos = 0;
 }
 
 bool GestorSeguimiento::cargarDesdeArchivo(const string& rutaArchivo) {
     ifstream archivo(rutaArchivo);
     if (!archivo.is_open()) {
-        return false; // Archivo no existe (primera vez)
+        return false;
     }
 
-    usuariosSeguidos.clear();
+    cantidadSeguidos = 0;
     string linea;
 
     while (getline(archivo, linea)) {
         if (!linea.empty()) {
-            usuariosSeguidos.push_back(linea);
+            seguirUsuario(linea);
         }
     }
 
@@ -76,7 +100,7 @@ bool GestorSeguimiento::guardarEnArchivo(const string& rutaArchivo) const {
         return false;
     }
 
-    for (size_t i = 0; i < usuariosSeguidos.size(); i++) {
+    for (int i = 0; i < cantidadSeguidos; i++) {
         archivo << usuariosSeguidos[i] << endl;
     }
 
@@ -85,13 +109,13 @@ bool GestorSeguimiento::guardarEnArchivo(const string& rutaArchivo) const {
 }
 
 void GestorSeguimiento::mostrar() const {
-    if (usuariosSeguidos.empty()) {
+    if (cantidadSeguidos == 0) {
         cout << "No estas siguiendo a ningun usuario." << endl;
         return;
     }
 
     cout << "Usuarios seguidos:" << endl;
-    for (size_t i = 0; i < usuariosSeguidos.size(); i++) {
+    for (int i = 0; i < cantidadSeguidos; i++) {
         cout << "[" << (i + 1) << "] " << usuariosSeguidos[i] << endl;
     }
 }

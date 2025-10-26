@@ -2,6 +2,7 @@ debug/Aplicacion.o
 debug/GestorAlbumes.o
 debug/GestorArtistas.o
 debug/GestorCanciones.o
+debug/GestorPublicidades.o
 debug/GestorSeguimiento.o
 debug/GestorUsuarios.o
 debug/main.o
@@ -10,5 +11,6 @@ debug/Artista.o
 debug/Cancion.o
 debug/Lista.o
 debug/ListaFavoritos.o
+debug/Publicidad.o
 debug/Reproductor.o
 debug/Usuarios.o

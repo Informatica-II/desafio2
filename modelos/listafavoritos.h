@@ -1,16 +1,18 @@
 #ifndef LISTAFAVORITOS_H
 #define LISTAFAVORITOS_H
 
-#include <vector>
 #include <string>
-#include "Cancion.h"
 
 using namespace std;
 
 class ListaFavoritos {
 private:
-    vector<long> idsCancionesFavoritas;  // Solo guardamos los IDs
+    long* idsCancionesFavoritas;  // Arreglo dinámico en lugar de vector
+    int cantidadCanciones;
+    int capacidad;
     const int MAX_FAVORITOS = 10000;
+
+    void redimensionar();
 
 public:
     ListaFavoritos();
@@ -21,7 +23,7 @@ public:
     bool eliminarCancion(long idCancion);
     bool contiene(long idCancion) const;
     int getCantidadCanciones() const;
-    vector<long> getIdsCanciones() const;
+    long* getIdsCanciones() const;  // Retorna puntero al arreglo
     void limpiar();
 
     // Persistencia

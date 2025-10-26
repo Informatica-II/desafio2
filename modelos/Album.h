@@ -3,7 +3,6 @@
 
 #include <string>
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
@@ -14,7 +13,8 @@ private:
     string nombre;
     string fechaLanzamiento;
     int duracionTotal;
-    vector<string> generos;
+    string* generos;  // Arreglo dinámico
+    int cantidadGeneros;
     string selloDisquero;
     int puntuacion;
     string rutaPortada;
@@ -22,7 +22,7 @@ private:
 public:
     Album();
     Album(int idAlb, int idArt, string nom, string fecha, int duracion,
-          vector<string> gen, string sello, int punt, string ruta);
+          string* gen, int cantGen, string sello, int punt, string ruta);
     ~Album();
 
     // Getters
@@ -31,7 +31,8 @@ public:
     string getNombre() const;
     string getFechaLanzamiento() const;
     int getDuracionTotal() const;
-    vector<string> getGeneros() const;
+    string* getGeneros() const;
+    int getCantidadGeneros() const;
     string getSelloDisquero() const;
     int getPuntuacion() const;
     string getRutaPortada() const;

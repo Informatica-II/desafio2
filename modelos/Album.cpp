@@ -7,25 +7,37 @@ Album::Album() {
     nombre = "";
     fechaLanzamiento = "";
     duracionTotal = 0;
+    generos = nullptr;
+    cantidadGeneros = 0;
     selloDisquero = "";
     puntuacion = 0;
     rutaPortada = "";
 }
 
 Album::Album(int idAlb, int idArt, string nom, string fecha, int duracion,
-             vector<string> gen, string sello, int punt, string ruta) {
+             string* gen, int cantGen, string sello, int punt, string ruta) {
     idAlbum = idAlb;
     idArtista = idArt;
     nombre = nom;
     fechaLanzamiento = fecha;
     duracionTotal = duracion;
-    generos = gen;
+    cantidadGeneros = cantGen;
     selloDisquero = sello;
     puntuacion = punt;
     rutaPortada = ruta;
+
+    // Copiar arreglo de géneros
+    generos = new string[cantidadGeneros];
+    for (int i = 0; i < cantidadGeneros; i++) {
+        generos[i] = gen[i];
+    }
 }
 
-Album::~Album() {}
+Album::~Album() {
+    if (generos != nullptr) {
+        delete[] generos;
+    }
+}
 
 int Album::getIdAlbum() const {
     return idAlbum;
@@ -47,8 +59,12 @@ int Album::getDuracionTotal() const {
     return duracionTotal;
 }
 
-vector<string> Album::getGeneros() const {
+string* Album::getGeneros() const {
     return generos;
+}
+
+int Album::getCantidadGeneros() const {
+    return cantidadGeneros;
 }
 
 string Album::getSelloDisquero() const {
@@ -78,9 +94,9 @@ string Album::formatearDuracion() const {
 
 string Album::obtenerGenerosTexto() const {
     string resultado = "";
-    for (size_t i = 0; i < generos.size(); i++) {
+    for (int i = 0; i < cantidadGeneros; i++) {
         resultado += generos[i];
-        if (i < generos.size() - 1) {
+        if (i < cantidadGeneros - 1) {
             resultado += ", ";
         }
     }

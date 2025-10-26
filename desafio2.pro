@@ -8,6 +8,7 @@ SOURCES += \
     Servicios/GestorAlbumes.cpp \
     Servicios/GestorArtistas.cpp \
         Servicios/GestorCanciones.cpp \
+    Servicios/GestorPublicidades.cpp \
     Servicios/GestorSeguimiento.cpp \
         Servicios/GestorUsuarios.cpp \
         main.cpp \
@@ -16,6 +17,7 @@ SOURCES += \
         modelos/Cancion.cpp \
         modelos/Lista.cpp \
     modelos/ListaFavoritos.cpp \
+    modelos/Publicidad.cpp \
         modelos/Reproductor.cpp \
     modelos/Usuarios.cpp
 
@@ -25,6 +27,7 @@ HEADERS += \
     Servicios/GestorAlbumes.h \
     Servicios/GestorArtistas.h \
     Servicios/GestorCanciones.h \
+    Servicios/GestorPublicidades.h \
     Servicios/GestorSeguimiento.h \
     Servicios/GestorUsuarios.h \
     modelos/Album.h \
@@ -32,6 +35,7 @@ HEADERS += \
     modelos/Cancion.h \
     modelos/Lista.h \
     modelos/ListaFavoritos.h \
+    modelos/Publicidad.h \
     modelos/Reproductor.h \
     modelos/Usuarios.h
 

@@ -38,16 +38,14 @@ void GestorAlbumes::dividirLinea(string linea, string* datos) {
     }
 }
 
-vector<string> GestorAlbumes::dividirGeneros(const string& generos) {
-    vector<string> resultado;
+void GestorAlbumes::dividirGeneros(const string& generos, string* resultado, int& cantidad) {
     stringstream ss(generos);
     string genero;
+    cantidad = 0;
 
-    while (getline(ss, genero, ',')) {
-        resultado.push_back(genero);
+    while (getline(ss, genero, ',') && cantidad < 10) {  // Máximo 10 géneros
+        resultado[cantidad++] = genero;
     }
-
-    return resultado;
 }
 
 bool GestorAlbumes::cargarDesdeArchivo(string rutaArchivo) {
@@ -75,15 +73,21 @@ bool GestorAlbumes::cargarDesdeArchivo(string rutaArchivo) {
             string nombre = datos[2];
             string fecha = datos[3];
             int duracion = stoi(datos[4]);
-            vector<string> generos = dividirGeneros(datos[5]);
+
+            // Dividir géneros
+            string generosArray[10];
+            int cantGen = 0;
+            dividirGeneros(datos[5], generosArray, cantGen);
+
             string sello = datos[6];
             int punt = stoi(datos[7]);
             string ruta = datos[8];
 
             Album* album = new Album(idAlb, idArt, nombre, fecha, duracion,
-                                     generos, sello, punt, ruta);
+                                     generosArray, cantGen, sello, punt, ruta);
             agregarAlbum(album);
             cargados++;
+
         } catch (...) {
             cout << "[ERROR] Error al procesar album: " << linea << endl;
         }

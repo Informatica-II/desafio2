@@ -1,14 +1,17 @@
 #ifndef GESTORSEGUIMIENTO_H
 #define GESTORSEGUIMIENTO_H
 
-#include <vector>
 #include <string>
 
 using namespace std;
 
 class GestorSeguimiento {
 private:
-    vector<string> usuariosSeguidos;
+    string* usuariosSeguidos;  // Arreglo dinámico en lugar de vector
+    int cantidadSeguidos;
+    int capacidad;
+
+    void redimensionar();
 
 public:
     GestorSeguimiento();
@@ -19,7 +22,7 @@ public:
     bool dejarDeSeguir(const string& nickname);
     bool estaSiguiendo(const string& nickname) const;
     int getCantidadSeguidos() const;
-    vector<string> getUsuariosSeguidos() const;
+    string* getUsuariosSeguidos() const;  // Retorna puntero al arreglo
     void limpiar();
 
     // Persistencia
