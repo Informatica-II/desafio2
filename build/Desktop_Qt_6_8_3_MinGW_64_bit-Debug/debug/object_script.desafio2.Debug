@@ -9,7 +9,6 @@ debug/main.o
 debug/Album.o
 debug/Artista.o
 debug/Cancion.o
-debug/Lista.o
 debug/ListaFavoritos.o
 debug/Publicidad.o
 debug/Reproductor.o

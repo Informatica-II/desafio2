@@ -7,3 +7,4 @@ pedro_beats|pedro555|estandar|Cartagena|Colombia|2024-05-12
 Andres147|Sergio123|premium|Medellin|Colombia|2025-10-21
 checho|123|premium|Medellin|Colombia|2025-10-22
 anibal|123|estandar|medellin|colombia|2025-10-22
+carta|123456|premium|cartagena|colombia|2025-10-26

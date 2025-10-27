@@ -9,7 +9,6 @@ release/main.o
 release/Album.o
 release/Artista.o
 release/Cancion.o
-release/Lista.o
 release/ListaFavoritos.o
 release/Publicidad.o
 release/Reproductor.o

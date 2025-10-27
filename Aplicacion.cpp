@@ -14,6 +14,7 @@ Aplicacion::Aplicacion() {
     gestorPublicidades = new GestorPublicidades();
     gestorArtistas = new GestorArtistas();
     gestorAlbumes = new GestorAlbumes();
+    reproductor = new Reproductor(gestorCanciones, gestorPublicidades);
     usuarioActual = nullptr;
     cargarDatos();
 }
@@ -23,6 +24,8 @@ Aplicacion::~Aplicacion() {
     delete gestorCanciones;
     delete gestorArtistas;
     delete gestorAlbumes;
+    delete gestorPublicidades;
+    delete reproductor;
 }
 
 void Aplicacion::ejecutar() {
@@ -132,7 +135,7 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
         switch(opcion) {
         case 1:
             cout << "\n[INFO] Reproduccion aleatoria..." << endl;
-            reproduccionAleatoriaEstandar();
+            reproductor->reproduccionAleatoriaEstandar(10);
             cout << "Presione Enter...";
             cin.get();
             break;
@@ -147,7 +150,7 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
             try {
                 idCancion = stol(idInput);
             } catch (...) {
-                cout << "\n[ERROR] ID invalido. Debe ser un numero." << endl;
+                cout << "\n[ERROR] ID invalido." << endl;
                 cout << "Presione Enter...";
                 cin.get();
                 break;
@@ -169,15 +172,16 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
                 cin.ignore();
 
                 if (subOpcion == 1) {
-                    reproducirCancion(cancion, true);
+                    reproductor->reproducirCancion(cancion, false);  // NUEVO
                 }
-             else {
+            } else {
                 cout << "\n[ERROR] No se encontro ninguna cancion con ese ID." << endl;
             }
-        }
+
             cout << "\nPresione Enter...";
             cin.get();
         }
+        break;
         case 3:
             cout << "\n=== LISTA DE ARTISTAS ===" << endl;
             cout << "Total de artistas: " << gestorArtistas->getCantidadArtistas() << endl;
@@ -298,9 +302,8 @@ void Aplicacion::mostrarMenuUsuarioPremium() {
 
         switch(opcion) {
         case 1:
-            cout <<"Reproduccion Aleatoria..."<<endl;
-            reproduccionAleatoriaPremium();
-
+            cout << "Reproduccion Aleatoria..." << endl;
+            reproductor->reproduccionAleatoriaPremium(5);
             break;
 
         case 2:
@@ -344,7 +347,7 @@ void Aplicacion::mostrarMenuUsuarioPremium() {
             try {
                 idCancion = stol(idInput);
             } catch (...) {
-                cout << "\n[ERROR] ID invalido. Debe ser un numero." << endl;
+                cout << "\n[ERROR] ID invalido." << endl;
                 cout << "Presione Enter...";
                 cin.get();
                 break;
@@ -367,7 +370,7 @@ void Aplicacion::mostrarMenuUsuarioPremium() {
                 cin.ignore();
 
                 if (subOpcion == 1) {
-                    reproducirCancion(cancion, true);
+                    reproductor->reproducirCancion(cancion, true);  // NUEVO
                 } else if (subOpcion == 2) {
                     if (usuarioActual->getListaFavoritos()->agregarCancion(idCancion)) {
                         string rutaFavoritos = "data/favoritos_" + usuarioActual->getNickname() + ".txt";
@@ -385,7 +388,6 @@ void Aplicacion::mostrarMenuUsuarioPremium() {
             cin.get();
         }
         break;
-
         case 8:
             cout << "\n=== LISTA DE ARTISTAS ===" << endl;
             cout << "Total de artistas: " << gestorArtistas->getCantidadArtistas() << endl;
@@ -582,97 +584,7 @@ void Aplicacion::salir() {
     cout << "Vive la musica con nosotros.\n" << endl;
 }
 
-void Aplicacion::reproducirCancion(Cancion* cancion, bool esCalidadAlta) {
-    cout << "\n REPRODUCIENDO " << endl;
-    cout << "================================" << endl;
-    cout << "Cancion: " << cancion->getNombre() << endl;
-    cout << "Duracion: " << cancion->formatearDuracion() << endl;
-    cout << "Calidad: " << (esCalidadAlta ? "320 kbps (HD)" : "128 kbps") << endl;
-    cout << "================================" << endl;
-    cout << "\nArchivo de audio:" << endl;
-    cout << cancion->getRutaCompleta(esCalidadAlta) << endl;
-    cout << "================================\n" << endl;
-
-    cancion->incrementarReproducciones();
-}
-
-void Aplicacion::reproduccionAleatoriaEstandar() {
-    cout << "\n=== REPRODUCCION ALEATORIA (ESTANDAR) ===" << endl;
-    cout << "Calidad: 128 kbps | Con publicidad cada 2 canciones" << endl;
-    cout << "Reproduciendo 10 canciones...\n" << endl;
-
-    int cancionesReproducidas = 0;
-    int totalCanciones = 10;
-
-    for (int i = 0; i < totalCanciones; i++) {
-        Cancion* cancion = gestorCanciones->obtenerCancionAleatoria();
-
-        if (cancion == nullptr) {
-            cout << "[ERROR] No hay canciones disponibles." << endl;
-            break;
-        }
-
-        cout << "\n--- Cancion " << (i + 1) << " de " << totalCanciones << " ---" << endl;
-        reproducirCancion(cancion, false); // Calidad estándar
-        // Usar temporizador con chrono (3 segundos)
-        pausarConTemporizador(3);
-
-
-        cancionesReproducidas++;
-
-        // Mostrar publicidad cada 2 canciones
-        if (cancionesReproducidas % 2 == 0 && i < totalCanciones - 1) {
-            Publicidad* anuncio = gestorPublicidades->obtenerPublicidadAleatoria();
-
-            if (anuncio != nullptr) {
-                anuncio->mostrar();
-
-                // Pausar según duración del anuncio
-                this_thread::sleep_for(seconds(anuncio->getDuracion()));
-            }
-        }
-
-
-        cout << endl;
-    }
-
-    cout << "\n=== REPRODUCCION FINALIZADA ===" << endl;
-    cout << "Total reproducido: " << cancionesReproducidas << " canciones" << endl;
-    cout << "\nPresione Enter...";
-    cin.get();
-}
-
 // METODOS PREMIUM:
-void Aplicacion::reproduccionAleatoriaPremium() {
-    cout << "\n=== REPRODUCCION ALEATORIA (PREMIUM) ===" << endl;
-    cout << " Calidad: 320 kbps HD | Sin publicidad " << endl;
-    cout << " Controles avanzados disponibles" << endl;
-
-    int totalCanciones = 5;
-    Cancion** listaCanciones = new Cancion*[totalCanciones];
-
-    // Obtener canciones aleatorias
-    for (int i = 0; i < totalCanciones; i++) {
-        listaCanciones[i] = gestorCanciones->obtenerCancionAleatoria();
-        if (listaCanciones[i] == nullptr) {
-            cout << "[ERROR] No hay suficientes canciones disponibles." << endl;
-            delete[] listaCanciones;
-            cout << "\nPresione Enter...";
-            cin.get();
-            return;
-        }
-    }
-
-    // Reproducir con controles premium
-    reproducirConControlesPremium(listaCanciones, totalCanciones);
-
-    delete[] listaCanciones;
-
-    cout << "\n=== REPRODUCCION FINALIZADA ===" << endl;
-    cout << "\nPresione Enter...";
-    cin.get();
-}
-
 void Aplicacion::agregarAFavoritos() {
     string idInput;
 
@@ -734,7 +646,7 @@ void Aplicacion::agregarAFavoritos() {
         break;
 
     case 2:
-        reproducirCancion(cancion, true);
+        reproductor->reproducirCancion(cancion, true);
         break;
 
     case 0:
@@ -875,12 +787,11 @@ void Aplicacion::seguirUsuario() {
 void Aplicacion::reproducirMisFavoritos() {
     cout << "\n=== REPRODUCIR FAVORITOS ===" << endl;
 
-    // Crear arreglo dinámico para todas las canciones
     int capacidadTotal = 10000;
     Cancion** todasCanciones = new Cancion*[capacidadTotal];
     int totalCanciones = 0;
 
-    // Mis favoritos
+    // Recolectar favoritos propios
     long* misFavoritos = usuarioActual->getListaFavoritos()->getIdsCanciones();
     int cantMisFavoritos = usuarioActual->getListaFavoritos()->getCantidadCanciones();
 
@@ -891,7 +802,7 @@ void Aplicacion::reproducirMisFavoritos() {
         }
     }
 
-    // Favoritos de usuarios seguidos
+    // Recolectar favoritos de usuarios seguidos
     string* seguidos = usuarioActual->getGestorSeguimiento()->getUsuariosSeguidos();
     int cantSeguidos = usuarioActual->getGestorSeguimiento()->getCantidadSeguidos();
 
@@ -928,7 +839,7 @@ void Aplicacion::reproducirMisFavoritos() {
     cin >> modo;
     cin.ignore();
 
-    // Mezclar si es aleatorio (Fisher-Yates)
+    // Mezclar si es aleatorio
     if (modo == 2) {
         srand(time(0));
         for (int i = totalCanciones - 1; i > 0; i--) {
@@ -942,8 +853,8 @@ void Aplicacion::reproducirMisFavoritos() {
         cout << "\n Reproduccion en orden\n" << endl;
     }
 
-    // Reproducir con controles premium
-    reproducirConControlesPremium(todasCanciones, totalCanciones);
+    //  Delegar al reproductor
+    reproductor->reproducirListaConControles(todasCanciones, totalCanciones);
 
     delete[] todasCanciones;
 
@@ -951,242 +862,3 @@ void Aplicacion::reproducirMisFavoritos() {
     cout << "Presione Enter...";
     cin.get();
 }
-
-void Aplicacion::pausarConTemporizador(int segundos) {
-    auto inicio = steady_clock::now();
-    auto duracion = seconds(segundos);
-    auto fin = inicio + duracion;
-
-    cout << "Reproduciendo: [";
-
-    int barraTotal = 30;  // 30 caracteres de barra
-    int ultimaPosicion = 0;
-
-    while (steady_clock::now() < fin) {
-        auto transcurrido = duration_cast<milliseconds>(steady_clock::now() - inicio);
-        double porcentaje = static_cast<double>(transcurrido.count()) / (segundos * 1000.0);
-        int posicionActual = static_cast<int>(porcentaje * barraTotal);
-
-        // Dibujar barra de progreso
-        for (int i = ultimaPosicion; i < posicionActual && i < barraTotal; i++) {
-            cout << "=";
-
-        }
-
-        ultimaPosicion = posicionActual;
-
-        // Pequeña pausa
-        this_thread::sleep_for(milliseconds(100));
-    }
-
-    // Completar la barra
-    for (int i = ultimaPosicion; i < barraTotal; i++) {
-        cout << "=";
-    }
-
-    cout << "] " << endl;
-}
-
-void Aplicacion::mostrarControlesPremium() {
-    cout << "\n========================================" << endl;
-    cout << "        CONTROLES DE REPRODUCCION       " << endl;
-    cout << "========================================" << endl;
-    cout << "[N] Siguiente cancion" << endl;
-    cout << "[P] Cancion anterior (hasta 4 atras)" << endl;
-    cout << "[R] Repetir cancion actual (on/off)" << endl;
-    cout << "[S] Salir de la reproduccion" << endl;
-    cout << "========================================" << endl;
-    cout << "Comando: ";
-}
-
-bool Aplicacion::procesarComandoReproduccion(char comando, int& indiceActual, int totalCanciones,
-                                             bool& modoRepetir, bool& continuar, int* historial,
-                                             int& cantidadHistorial) {
-    switch(comando) {
-    case 'N':
-    case 'n':
-        // Siguiente canción
-        if (indiceActual < totalCanciones - 1) {
-            // Guardar en historial (solo si no está en modo repetir)
-            if (!modoRepetir && cantidadHistorial < 4) {
-                // Desplazar historial hacia la derecha
-                for (int i = cantidadHistorial; i > 0; i--) {
-                    historial[i] = historial[i - 1];
-                }
-                historial[0] = indiceActual;
-                cantidadHistorial++;
-            }
-
-            indiceActual++;
-            cout << "\n Siguiente cancion...\n" << endl;
-            return true;  // Continuar con nueva canción
-        } else {
-            cout << "\n[INFO] Ya estas en la ultima cancion." << endl;
-            return false;  // Seguir reproduciendo la actual
-        }
-
-    case 'P':
-    case 'p':
-        // Canción anterior
-        if (cantidadHistorial > 0) {
-            indiceActual = historial[0];
-
-            // Eliminar del historial
-            for (int i = 0; i < cantidadHistorial - 1; i++) {
-                historial[i] = historial[i + 1];
-            }
-            cantidadHistorial--;
-
-            cout << "\n Cancion anterior...\n" << endl;
-            return true;  // Continuar con canción anterior
-        } else {
-            cout << "\n[INFO] No hay canciones anteriores (maximo 4 hacia atras)." << endl;
-            return false;
-        }
-
-    case 'R':
-    case 'r':
-        // Modo repetir
-        modoRepetir = !modoRepetir;
-        if (modoRepetir) {
-            cout << "\n Modo repetir ACTIVADO - Esta cancion se repetira indefinidamente." << endl;
-        } else {
-            cout << "\n Modo repetir DESACTIVADO - Reproduccion normal." << endl;
-        }
-        return false;  // Seguir con la canción actual
-
-    case 'S':
-    case 's':
-        // Salir
-        cout << "\n️ Deteniendo reproduccion..." << endl;
-        continuar = false;
-        return false;
-
-    default:
-        cout << "\n[ERROR] Comando invalido. Use N, P, R o S." << endl;
-        return false;
-    }
-}
-
-void Aplicacion::reproducirConControlesPremium(Cancion** listaCanciones, int totalCanciones) {
-    int indiceActual = 0;
-    bool modoRepetir = false;
-    bool continuar = true;
-
-    // Historial de canciones (máximo 4)
-    int* historial = new int[4];
-    int cantidadHistorial = 0;
-
-    cout << "\n Reproduccion iniciada con controles Premium" << endl;
-    cout << "Total de canciones: " << totalCanciones << endl;
-
-    while (continuar && indiceActual < totalCanciones) {
-        // Mostrar información de la canción actual
-        cout << "\n========================================" << endl;
-        cout << "Cancion " << (indiceActual + 1) << " de " << totalCanciones << endl;
-        if (modoRepetir) {
-            cout << " MODO REPETIR ACTIVADO" << endl;
-        }
-        cout << "========================================" << endl;
-
-        reproducirCancion(listaCanciones[indiceActual], true);
-
-        // Simular reproducción con temporizador
-        auto inicio = steady_clock::now();
-        auto duracion = seconds(3);
-        auto fin = inicio + duracion;
-
-        bool comandoIngresado = false;
-        bool cambiarCancion = false;
-
-        cout << "\nReproduciendo";
-        cout.flush();
-
-        // Reproducción con posibilidad de interrupción
-        while (steady_clock::now() < fin && continuar) {
-            // Calcular progreso
-            auto transcurrido = duration_cast<milliseconds>(steady_clock::now() - inicio);
-            double porcentaje = static_cast<double>(transcurrido.count()) / 3000.0;
-
-            // Mostrar puntos de progreso
-            if (porcentaje >= 0.33 && porcentaje < 0.34 && !comandoIngresado) {
-                cout << ".";
-                cout.flush();
-            } else if (porcentaje >= 0.66 && porcentaje < 0.67 && !comandoIngresado) {
-                cout << ".";
-                cout.flush();
-            }
-
-            // Pequeña pausa
-            this_thread::sleep_for(milliseconds(100));
-        }
-
-        if (!comandoIngresado) {
-            cout << ". " << endl;
-        }
-
-        // Si está en modo repetir, repetir automáticamente
-        if (modoRepetir) {
-            cout << "\n Repitiendo cancion..." << endl;
-            mostrarControlesPremium();
-
-            char comando;
-            cin >> comando;
-            cin.ignore();
-
-            cambiarCancion = procesarComandoReproduccion(comando, indiceActual, totalCanciones,
-                                                         modoRepetir, continuar, historial,
-                                                         cantidadHistorial);
-
-            if (!cambiarCancion && continuar && !modoRepetir) {
-                // Si desactivó repetir, avanzar a siguiente
-                if (indiceActual < totalCanciones - 1) {
-                    if (cantidadHistorial < 4) {
-                        for (int i = cantidadHistorial; i > 0; i--) {
-                            historial[i] = historial[i - 1];
-                        }
-                        historial[0] = indiceActual;
-                        cantidadHistorial++;
-                    }
-                    indiceActual++;
-                } else {
-                    continuar = false;
-                }
-            }
-        } else {
-            // Modo normal: mostrar controles después de cada canción
-            mostrarControlesPremium();
-
-            char comando;
-            cin >> comando;
-            cin.ignore();
-
-            cambiarCancion = procesarComandoReproduccion(comando, indiceActual, totalCanciones,
-                                                         modoRepetir, continuar, historial,
-                                                         cantidadHistorial);
-
-            // Si no cambió de canción y no está en modo repetir, avanzar automáticamente
-            if (!cambiarCancion && continuar && !modoRepetir) {
-                if (indiceActual < totalCanciones - 1) {
-                    if (cantidadHistorial < 4) {
-                        for (int i = cantidadHistorial; i > 0; i--) {
-                            historial[i] = historial[i - 1];
-                        }
-                        historial[0] = indiceActual;
-                        cantidadHistorial++;
-                    }
-                    indiceActual++;
-                } else {
-                    continuar = false;
-                }
-            }
-        }
-    }
-
-    delete[] historial;
-
-    if (indiceActual >= totalCanciones && continuar) {
-        cout << "\n Has llegado al final de la lista de reproduccion." << endl;
-    }
-}
-
