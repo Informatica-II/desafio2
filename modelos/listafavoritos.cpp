@@ -3,7 +3,7 @@
 #include <iostream>
 
 ListaFavoritos::ListaFavoritos() {
-    capacidad = 10;
+    capacidad = 10000;
     cantidadCanciones = 0;
     idsCancionesFavoritas = new long[capacidad];
 }

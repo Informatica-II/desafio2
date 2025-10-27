@@ -7,6 +7,7 @@
 #include "Servicios/GestorArtistas.h"
 #include "Servicios/GestorAlbumes.h"
 #include "Servicios/GestorPublicidades.h"
+#include "Servicios/MedidorRecursos.h"
 #include "modelos/Reproductor.h"
 
 class Aplicacion {
@@ -18,6 +19,7 @@ private:
     GestorPublicidades* gestorPublicidades;
     Reproductor* reproductor;
     Usuario* usuarioActual;
+    MedidorRecursos* medidor;
     string preguntaMembresia;
 
     void cargarDatos();

@@ -1,6 +1,7 @@
 #include "Servicios/GestorUsuarios.h"
 #include <iostream>
 #include <fstream>
+#include "Servicios/MedidorRecursos.h"
 
 GestorUsuarios::GestorUsuarios() {
     capacidad = 10;
@@ -95,6 +96,7 @@ bool GestorUsuarios::guardarEnArchivo(string rutaArchivo) {
 
 Usuario* GestorUsuarios::buscarUsuario(string nickname) {
     for (int i = 0; i < cantidadUsuarios; i++) {
+        MedidorRecursos::registrarIteracion(); // Contar cada iteración del loop
         if (usuarios[i]->getNickname() == nickname) {
             return usuarios[i];
         }
@@ -128,3 +130,6 @@ void GestorUsuarios::mostrarTodos() const {
     cout << "Total: " << cantidadUsuarios << " usuarios\n" << endl;
 }
 
+Usuario** GestorUsuarios::getUsuarios() const {
+    return usuarios;
+}

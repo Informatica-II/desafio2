@@ -6,7 +6,7 @@
 #include <ctime>
 
 GestorPublicidades::GestorPublicidades() {
-    capacidad = 10;
+    capacidad = 50;
     cantidadPublicidades = 0;
     publicidades = new Publicidad*[capacidad];
 
@@ -28,16 +28,16 @@ GestorPublicidades::GestorPublicidades(const GestorPublicidades& otro) :
     cantidadPublicidades(otro.cantidadPublicidades),
     capacidad(otro.capacidad)
 {
-    // 1. Asignar nueva memoria para el arreglo de punteros.
+    //  Asignar nueva memoria para el arreglo de punteros.
     publicidades = new Publicidad*[capacidad];
 
-    // 2. Copiar los punteros (ambos objetos comparten las instancias de Publicidad,
+    //  Copiar los punteros (ambos objetos comparten las instancias de Publicidad,
     //    lo cual es aceptable si no se espera que la copia las modifique o elimine).
     for (int i = 0; i < cantidadPublicidades; i++) {
         publicidades[i] = otro.publicidades[i];
     }
 
-    // 3. Inicializar los espacios restantes a nullptr.
+    //  Inicializar los espacios restantes a nullptr.
     for (int i = cantidadPublicidades; i < capacidad; i++) {
         publicidades[i] = nullptr;
     }
@@ -69,27 +69,26 @@ GestorPublicidades& GestorPublicidades::operator=(const GestorPublicidades& otro
 }
 
 void GestorPublicidades::redimensionar() {
-    // 1. Inicializar la variable local con el valor actual de 'capacidad'.
+    //  Inicializar la variable local con el valor actual de 'capacidad'.
     int oldCapacidad = capacidad;
 
-    // 2. Duplicar la capacidad (ahora oldCapacidad tiene el valor antiguo).
+    //  Duplicar la capacidad (ahora oldCapacidad tiene el valor antiguo).
     capacidad *= 2;
 
-    // 3. Crear el nuevo arreglo.
+    //  Crear el nuevo arreglo.
     Publicidad** nuevo = new Publicidad*[capacidad];
 
-    // 4. Copiar los punteros existentes.
+    //  Copiar los punteros existentes.
     for (int i = 0; i < cantidadPublicidades; i++) {
         nuevo[i] = publicidades[i];
     }
 
-    // 5. INICIALIZAR LOS NUEVOS ESPACIOS A nullptr (Usando oldCapacidad como inicio).
-    // Esto es CRUCIAL para evitar el SIGSEGV cuando el arreglo se itera parcialmente lleno.
+    // INICIALIZAR LOS NUEVOS ESPACIOS A nullptr
     for (int i = oldCapacidad; i < capacidad; i++) {
         nuevo[i] = nullptr;
     }
 
-    // 6. Limpiar y reasignar.
+    // Limpiar y reasignar.
     delete[] publicidades;
     publicidades = nuevo;
 }

@@ -5,6 +5,7 @@ debug/GestorCanciones.o
 debug/GestorPublicidades.o
 debug/GestorSeguimiento.o
 debug/GestorUsuarios.o
+debug/MedidorRecursos.o
 debug/main.o
 debug/Album.o
 debug/Artista.o

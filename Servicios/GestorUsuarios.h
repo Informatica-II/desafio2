@@ -25,6 +25,7 @@ public:
     bool existeUsuario(string nickname);
     void agregarUsuario(Usuario* usuario);
     int getCantidadUsuarios() const;
+    Usuario** getUsuarios() const;
     void mostrarTodos() const;
     void cambiarMembresia ();
 

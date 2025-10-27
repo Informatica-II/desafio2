@@ -1,4 +1,5 @@
 #include "Reproductor.h"
+#include "Servicios/MedidorRecursos.h"
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -55,11 +56,13 @@ void Reproductor::pausarConTemporizador(int segundos) {
     int ultimaPosicion = 0;
 
     while (steady_clock::now() < fin) {
+        MedidorRecursos::registrarIteracion(); // Contar cada iteración del while
         auto transcurrido = duration_cast<milliseconds>(steady_clock::now() - inicio);
         double porcentaje = static_cast<double>(transcurrido.count()) / (segundos * 1000.0);
         int posicionActual = static_cast<int>(porcentaje * barraTotal);
 
         for (int i = ultimaPosicion; i < posicionActual && i < barraTotal; i++) {
+            MedidorRecursos::registrarIteracion(); // Contar dibujado de barra
             cout << "=";
             cout.flush();
         }
@@ -69,6 +72,7 @@ void Reproductor::pausarConTemporizador(int segundos) {
     }
 
     for (int i = ultimaPosicion; i < barraTotal; i++) {
+        MedidorRecursos::registrarIteracion();
         cout << "=";
     }
 
@@ -80,6 +84,9 @@ void Reproductor::pausarConTemporizador(int segundos) {
 // ============================================
 
 void Reproductor::reproduccionAleatoriaEstandar(int totalCanciones) {
+    MedidorRecursos::iniciarMedicion();
+    size_t memoriaLocales = sizeof(int) * 2; // cancionesReproducidas + totalCanciones
+
     cout << "\n=== REPRODUCCION ALEATORIA (ESTANDAR) ===" << endl;
     cout << "Calidad: 128 kbps | Con publicidad cada 2 canciones" << endl;
     cout << "Reproduciendo " << totalCanciones << " canciones...\n" << endl;
@@ -87,6 +94,7 @@ void Reproductor::reproduccionAleatoriaEstandar(int totalCanciones) {
     int cancionesReproducidas = 0;
 
     for (int i = 0; i < totalCanciones; i++) {
+        MedidorRecursos::registrarIteracion(); // Iteración del for
         Cancion* cancion = gestorCanciones->obtenerCancionAleatoria();
 
         if (cancion == nullptr) {
@@ -101,7 +109,9 @@ void Reproductor::reproduccionAleatoriaEstandar(int totalCanciones) {
 
         // Mostrar publicidad cada 2 canciones
         if (cancionesReproducidas % 2 == 0 && i < totalCanciones - 1) {
+            MedidorRecursos::registrarIteracion(); // Verificación de publicidad
             Publicidad* anuncio = gestorPublicidades->obtenerPublicidadAleatoria();
+            memoriaLocales += sizeof(Publicidad*);
 
             if (anuncio != nullptr) {
                 anuncio->mostrar();
@@ -114,7 +124,12 @@ void Reproductor::reproduccionAleatoriaEstandar(int totalCanciones) {
 
     cout << "\n=== REPRODUCCION FINALIZADA ===" << endl;
     cout << "Total reproducido: " << cancionesReproducidas << " canciones" << endl;
+
+    // REPORTE FINAL (debe calcularse desde Aplicacion)
+    MedidorRecursos::detenerMedicion();
 }
+
+
 
 // ============================================
 // CONTROLES PREMIUM
@@ -168,13 +183,12 @@ bool Reproductor::procesarComandoReproduccion(char comando, int& indiceActual, i
             }
             cantidadHistorial--;
 
-            cout << "\n️ Cancion anterior...\n" << endl;
+            cout << "\n️Cancion anterior...\n" << endl;
             return true;
         } else {
             cout << "\n[INFO] No hay canciones anteriores (maximo 4 hacia atras)." << endl;
             return false;
         }
-
     case 'R':
         modoRepetir = !modoRepetir;
         if (modoRepetir) {
@@ -280,21 +294,9 @@ void Reproductor::reproducirListaConControles(Cancion** listaCanciones, int tota
             continue;
         }
 
-        if (!cambiarCancion && !modoRepetir && continuar && indiceActual < totalCanciones - 1) {
-            if (cantidadHistorial < 4) {
-                for (int i = cantidadHistorial; i > 0; i--) {
-                    historialCanciones[i] = historialCanciones[i - 1];
-                }
-                historialCanciones[0] = indiceActual;
-                cantidadHistorial++;
-            }
-            indiceActual++;
-        } else if (indiceActual >= totalCanciones - 1 && !modoRepetir) {
-            continuar = false;
-        }
-    }
 
     if (!continuar && indiceActual >= totalCanciones - 1) {
         cout << "\n Reproduccion finalizada." << endl;
     }
+}
 }

@@ -37,7 +37,7 @@ public:
     void reproduccionAleatoriaEstandar(int totalCanciones = 10);
 
     // Reproducción Premium (con controles)
-    void reproduccionAleatoriaPremium(int totalCanciones = 5);
+    void reproduccionAleatoriaPremium(int totalCanciones = 15);
     void reproducirListaConControles(Cancion** listaCanciones, int totalCanciones);
 
     // Reproducción simple (sin controles)

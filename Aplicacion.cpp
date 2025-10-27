@@ -15,6 +15,7 @@ Aplicacion::Aplicacion() {
     gestorArtistas = new GestorArtistas();
     gestorAlbumes = new GestorAlbumes();
     reproductor = new Reproductor(gestorCanciones, gestorPublicidades);
+    medidor = new MedidorRecursos();
     usuarioActual = nullptr;
     cargarDatos();
 }
@@ -26,6 +27,7 @@ Aplicacion::~Aplicacion() {
     delete gestorAlbumes;
     delete gestorPublicidades;
     delete reproductor;
+    delete medidor;
 }
 
 void Aplicacion::ejecutar() {
@@ -133,32 +135,58 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
         cin.ignore();
 
         switch(opcion) {
-        case 1:
+        case 1:{
+            MedidorRecursos::iniciarMedicion();
             cout << "\n[INFO] Reproduccion aleatoria..." << endl;
-            reproductor->reproduccionAleatoriaEstandar(10);
+            reproductor->reproduccionAleatoriaEstandar(5);
+
+            size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+            medidor->mostrarReporteCompleto("REPRODUCCION ALEATORIA ESTANDAR", memoriaTotal, 0);
+            MedidorRecursos::detenerMedicion();
+
             cout << "Presione Enter...";
             cin.get();
+        }
             break;
+
         case 2:
         {
+            MedidorRecursos::iniciarMedicion();
             string idInput;
+            size_t memoriaLocales = sizeof(idInput) + sizeof(long) + sizeof(Cancion*) + sizeof(int);
+
             cout << "\n=== BUSCAR CANCION POR ID ===" << endl;
             cout << "Ingrese el ID de la cancion: ";
             getline(cin, idInput);
+            MedidorRecursos::registrarIteracion();
+            memoriaLocales += idInput.capacity();
 
             long idCancion;
             try {
                 idCancion = stol(idInput);
+                MedidorRecursos::registrarIteracion();
             } catch (...) {
                 cout << "\n[ERROR] ID invalido." << endl;
+                size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                    gestorUsuarios, gestorCanciones, gestorArtistas,
+                    gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                    );
+                medidor->mostrarReporteCompleto("BUSCAR CANCION (ERROR)", memoriaTotal, memoriaLocales);
+                MedidorRecursos::detenerMedicion();
+
                 cout << "Presione Enter...";
                 cin.get();
                 break;
             }
 
             Cancion* cancion = gestorCanciones->buscarPorId(idCancion);
+            MedidorRecursos::registrarIteracion();
 
             if (cancion != nullptr) {
+                MedidorRecursos::registrarIteracion();
                 cout << "\n=== CANCION ENCONTRADA ===" << endl;
                 cancion->mostrarInfo();
 
@@ -170,12 +198,21 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
                 int subOpcion;
                 cin >> subOpcion;
                 cin.ignore();
+                MedidorRecursos::registrarIteracion();
 
                 if (subOpcion == 1) {
-                    reproductor->reproducirCancion(cancion, false);  // NUEVO
+                    MedidorRecursos::registrarIteracion();
+                    reproductor->reproducirCancion(cancion, false);
                 }
             } else {
                 cout << "\n[ERROR] No se encontro ninguna cancion con ese ID." << endl;
+
+                size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                    gestorUsuarios, gestorCanciones, gestorArtistas,
+                    gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                    );
+                medidor->mostrarReporteCompleto("BUSCAR CANCION", memoriaTotal, memoriaLocales);
+                MedidorRecursos::detenerMedicion();
             }
 
             cout << "\nPresione Enter...";
@@ -183,37 +220,81 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
         }
         break;
         case 3:
+        {   MedidorRecursos::iniciarMedicion();
             cout << "\n=== LISTA DE ARTISTAS ===" << endl;
             cout << "Total de artistas: " << gestorArtistas->getCantidadArtistas() << endl;
             cout << "========================================" << endl;
             gestorArtistas->mostrarOrdenadoPorTendencia();
+            size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+            medidor->mostrarReporteCompleto("VER ARTISTAS", memoriaTotal, 0);
+            MedidorRecursos::detenerMedicion();
             cout << "\nPresione Enter...";
-            cin.get();
+            cin.get();}
             break;
-        case 4:
+        case 4:{
+            MedidorRecursos::iniciarMedicion();
             cout << "\n=== LISTA DE ALBUMES ===" << endl;
             cout << "Total de albumes: " << gestorAlbumes->getCantidadAlbumes() << endl;
             cout << "========================================" << endl;
             gestorAlbumes->mostrarTodos();
+
+            size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+            medidor->mostrarReporteCompleto("VER ALBUMES", memoriaTotal, 0);
+            MedidorRecursos::detenerMedicion();
+
             cout << "\nPresione Enter...";
             cin.get();
-            break;
+        }
+        break;
+
         case 5:
+        {
+            MedidorRecursos::iniciarMedicion();
             cout << "\n=== TODAS LAS CANCIONES ===" << endl;
             cout << "Total de canciones: " << gestorCanciones->getCantidadCanciones() << endl;
             cout << "========================================" << endl;
             gestorCanciones->mostrarTodas();
+
+            size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+            medidor->mostrarReporteCompleto("VER CANCIONES", memoriaTotal, 0);
+            MedidorRecursos::detenerMedicion();
+
             cout << "\nPresione Enter...";
             cin.get();
-            break;
+        }
+        break;
+
         case 6:
+        {
+            MedidorRecursos::iniciarMedicion();
             usuarioActual->mostrarInfo();
+
+            size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+            medidor->mostrarReporteCompleto("VER INFORMACION", memoriaTotal, 0);
+            MedidorRecursos::detenerMedicion();
+
             cout << "Presione Enter...";
             cin.get();
-            break;
+        }
+        break;
+
         case 7:
+        {
+            MedidorRecursos::iniciarMedicion();
             cout << "\n========================================" << endl;
-            cout << "        ¡HAZTE PREMIUM HOY!             " << endl;
+            cout << "        HAZTE PREMIUM HOY!             " << endl;
             cout << "========================================" << endl;
             cout << "\nBeneficios Premium:" << endl;
             cout << "Sin anuncios publicitarios" << endl;
@@ -221,21 +302,36 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
             cout << "Lista de favoritos (hasta 10,000 canciones)" << endl;
             cout << "Seguir listas de otros usuarios premium" << endl;
             cout << "Controles avanzados de reproduccion" << endl;
-            cout << "\nPrecio: $19,900 COP/mes" << endl;
+            cout << "\nPrecio: 19,900 COP/mes" << endl;
             cout << "¿Deseas subscribirte?"<< endl;
             cout << "\n 1. Si.\n 2. No."<< endl;
             cin >> preguntaMembresia;
+            size_t memoriaLocales = sizeof(string);
+            memoriaLocales += preguntaMembresia.capacity();
+            MedidorRecursos::registrarIteracion();
+
             if (preguntaMembresia == "1"){
+                MedidorRecursos::registrarIteracion();
                 usuarioActual->setTipoMembresia("premium" );
+                MedidorRecursos::registrarIteracion();
+
                 cout << usuarioActual->getTipoMembresia()<<endl;
                 gestorUsuarios->guardarEnArchivo("data/usuarios.txt");
                 cout << "Disfrute de su Membresia, el cobro sera automatico a su tarjeta de credito"<< endl;
                 cout << "Cierre sesión para actualizar membresia" << endl;
                 cin.get();
+
+                size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                    gestorUsuarios, gestorCanciones, gestorArtistas,
+                    gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                    );
+                medidor->mostrarReporteCompleto("UPGRADE A PREMIUM", memoriaTotal, memoriaLocales);
+                MedidorRecursos::detenerMedicion();
             }
 
             cout << "Presione Enter...";
             cin.get();
+        }
             break;
         case 8:
             cerrarSesion();
@@ -301,61 +397,136 @@ void Aplicacion::mostrarMenuUsuarioPremium() {
         cin.ignore();
 
         switch(opcion) {
-        case 1:
+        case 1: {
+            MedidorRecursos::iniciarMedicion();
             cout << "Reproduccion Aleatoria..." << endl;
             reproductor->reproduccionAleatoriaPremium(5);
-            break;
 
-        case 2:
+            size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+            medidor->mostrarReporteCompleto("REPRODUCCION ALEATORIA PREMIUM", memoriaTotal, 0);
+            MedidorRecursos::detenerMedicion();
+        }
+        break;
+
+        case 2:{
+            MedidorRecursos::iniciarMedicion();
             cout << "TUS FAVORITOS"<<endl;
             verMisFavoritos();
 
-            break;
+            size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+            medidor->mostrarReporteCompleto("VER FAVORITOS", memoriaTotal, 0);
+            MedidorRecursos::detenerMedicion();
+        }
+        break;
 
         case 3:
+        {
+            MedidorRecursos::iniciarMedicion();
+            size_t memoriaInicio = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+
             cout << "AGREGAR CANCION A FAVORITOS"<<endl;
             agregarAFavoritos();
 
-            break;
+            size_t memoriaFinal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+
+            size_t memoriaVariablesLocales = sizeof(string) * 2 + sizeof(long) + sizeof(int);
+            medidor->mostrarReporteCompleto("AGREGAR A FAVORITOS", memoriaFinal, memoriaVariablesLocales);
+            MedidorRecursos::detenerMedicion();
+        }
+        break;
+
 
         case 4:
+        {
+            MedidorRecursos::iniciarMedicion();
             cout<<"ELIMINAR CANCION DE FAVORITOS"<<endl;
             eliminarDeFavoritos();
 
-            break;
+            size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+            size_t memoriaVariables = sizeof(string) + sizeof(long);
+            medidor->mostrarReporteCompleto("ELIMINAR DE FAVORITOS", memoriaTotal, memoriaVariables);
+            MedidorRecursos::detenerMedicion();
+        }
+        break;
 
-        case 5:
+        case 5: {
+            MedidorRecursos::iniciarMedicion();
             cout<<"SEGUIR A OTRO USUARIO"<<endl;
             seguirUsuario();
 
-            break;
-
-        case 6:
+            size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+            size_t memoriaVariables = sizeof(string) + sizeof(Usuario*);
+            medidor->mostrarReporteCompleto("SEGUIR USUARIO", memoriaTotal, memoriaVariables);
+            MedidorRecursos::detenerMedicion();
+        }
+        break;
+        case 6:{
+            MedidorRecursos::iniciarMedicion();
             cout<<"REPRODUCIR MIS FAVORITOS"<<endl;
             reproducirMisFavoritos();
 
-            break;
+            size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+            size_t memoriaVariables = 10000 * sizeof(Cancion*) + sizeof(int) * 4;
+            medidor->mostrarReporteCompleto("REPRODUCIR FAVORITOS", memoriaTotal, memoriaVariables);
+            MedidorRecursos::detenerMedicion();
+        }
+        break;
 
         case 7:
         {
             string idInput;
+            MedidorRecursos::iniciarMedicion();
+            size_t memoriaLocales = sizeof(idInput) + sizeof(long) + sizeof(Cancion*) + sizeof(int);
+
             cout << "\n=== BUSCAR CANCION POR ID ===" << endl;
             cout << "Ingrese el ID de la cancion: ";
             getline(cin, idInput);
+            MedidorRecursos::registrarIteracion();
+            memoriaLocales += idInput.capacity();
 
             long idCancion;
             try {
                 idCancion = stol(idInput);
+                MedidorRecursos::registrarIteracion();
             } catch (...) {
                 cout << "\n[ERROR] ID invalido." << endl;
+                size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                    gestorUsuarios, gestorCanciones, gestorArtistas,
+                    gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                    );
+                medidor->mostrarReporteCompleto("BUSCAR CANCION (ERROR)", memoriaTotal, memoriaLocales);
+                MedidorRecursos::detenerMedicion();
                 cout << "Presione Enter...";
                 cin.get();
                 break;
             }
 
             Cancion* cancion = gestorCanciones->buscarPorId(idCancion);
+            MedidorRecursos::registrarIteracion();
 
             if (cancion != nullptr) {
+                MedidorRecursos::registrarIteracion();
                 cout << "\n=== CANCION ENCONTRADA ===" << endl;
                 cancion->mostrarInfo();
 
@@ -368,11 +539,14 @@ void Aplicacion::mostrarMenuUsuarioPremium() {
                 int subOpcion;
                 cin >> subOpcion;
                 cin.ignore();
+                MedidorRecursos::registrarIteracion();
 
                 if (subOpcion == 1) {
+                    MedidorRecursos::registrarIteracion();
                     reproductor->reproducirCancion(cancion, true);  // NUEVO
                 } else if (subOpcion == 2) {
                     if (usuarioActual->getListaFavoritos()->agregarCancion(idCancion)) {
+                        MedidorRecursos::registrarIteracion();
                         string rutaFavoritos = "data/favoritos_" + usuarioActual->getNickname() + ".txt";
                         usuarioActual->getListaFavoritos()->guardarEnArchivo(rutaFavoritos);
                         cout << "\n[EXITO] Cancion agregada a favoritos!" << endl;
@@ -382,6 +556,12 @@ void Aplicacion::mostrarMenuUsuarioPremium() {
                 }
             } else {
                 cout << "\n[ERROR] No se encontro ninguna cancion con ese ID." << endl;
+                size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                    gestorUsuarios, gestorCanciones, gestorArtistas,
+                    gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                    );
+                medidor->mostrarReporteCompleto("BUSCAR CANCION", memoriaTotal, memoriaLocales);
+                MedidorRecursos::detenerMedicion();
             }
 
             cout << "\nPresione Enter...";
@@ -438,22 +618,31 @@ void Aplicacion::mostrarMenuUsuarioPremium() {
 }
 
 void Aplicacion::login() {
+    // INICIAR MEDICIÓN
+    MedidorRecursos::iniciarMedicion();
     string nickname, contrasena;
+    size_t memoriaLocales = sizeof(nickname) + sizeof(contrasena) + nickname.capacity() + contrasena.capacity();
+
 
     cout << "\n=== INICIAR SESION ===" << endl;
     cout << "Nickname: ";
     getline(cin, nickname);
+    MedidorRecursos::registrarIteracion();
     cout << "Contrasena: ";
     getline(cin, contrasena);
+    MedidorRecursos::registrarIteracion();
 
     Usuario* usuario = gestorUsuarios->buscarUsuario(nickname);
 
     if (usuario != nullptr) {
+        MedidorRecursos::registrarIteracion();
         if (usuario->validarContrasena(contrasena)) {
+            MedidorRecursos::registrarIteracion();
             usuarioActual = usuario;
 
             // CARGAR FAVORITOS Y SEGUIDOS (solo para premium)
             if (usuarioActual->esPremium()) {
+                MedidorRecursos::registrarIteracion();
                 string rutaFavoritos = "data/favoritos_" + nickname + ".txt";
                 string rutaSeguidos = "data/seguidos_" + nickname + ".txt";
 
@@ -462,6 +651,16 @@ void Aplicacion::login() {
             }
             cout << "\nLogin exitoso!" << endl;
             cout << "Redirigiendo..." << endl;
+
+            // CALCULAR MEMORIA TOTAL
+            size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+            // MOSTRAR REPORTE
+            medidor->mostrarReporteCompleto("LOGIN", memoriaTotal, memoriaLocales);
+            MedidorRecursos::detenerMedicion();
+
 
 // Pequeña pausa
 #ifdef _WIN32
@@ -478,11 +677,26 @@ void Aplicacion::login() {
             }
         } else {
             cout << "\n[ERROR] Contrasena incorrecta." << endl;
+
+            size_t memoriaTotal = medidor->calcularMemoriaTotal(
+                gestorUsuarios, gestorCanciones, gestorArtistas,
+                gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+                );
+            medidor->mostrarReporteCompleto("LOGIN (FALLIDO)", memoriaTotal, memoriaLocales);
+            MedidorRecursos::detenerMedicion();
+
             cout << "Presione Enter...";
             cin.get();
         }
     } else {
         cout << "\n[ERROR] Usuario no encontrado." << endl;
+        size_t memoriaTotal = medidor->calcularMemoriaTotal(
+            gestorUsuarios, gestorCanciones, gestorArtistas,
+            gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+            );
+        medidor->mostrarReporteCompleto("LOGIN (FALLIDO)", memoriaTotal, memoriaLocales);
+        MedidorRecursos::detenerMedicion();
+
         cout << "Presione Enter...";
         cin.get();
     }
@@ -554,15 +768,29 @@ void Aplicacion::registrarUsuario() {
 }
 
 void Aplicacion::cerrarSesion() {
+    // Iniciar medición
+    MedidorRecursos::iniciarMedicion();
+
     cout << "\n[SISTEMA] Cerrando sesion..." << endl;
     cout << "Hasta pronto, " << usuarioActual->getNickname() << "!" << endl;
-    usuarioActual = nullptr;
 
-#ifdef _WIN32
-    system("timeout /t 1 >nul");
-#else
-    system("sleep 1");
-#endif
+    // Calcular y mostrar reporte (usuarioActual todavía es válido)
+    size_t memoriaTotal = medidor->calcularMemoriaTotal(
+        gestorUsuarios, gestorCanciones, gestorArtistas,
+        gestorAlbumes, gestorPublicidades, reproductor, usuarioActual
+        );
+
+    // El valor 0 se usa para memoriaVariablesLocales ya que las variables principales son miembros de la clase Aplicacion
+    medidor->mostrarReporteCompleto("CIERRE DE SESION", memoriaTotal, 0);
+
+    MedidorRecursos::detenerMedicion();
+
+    // PAUSA : Detiene la ejecución para que el usuario pueda ver el reporte
+    cout << "Presione Enter para volver al menu principal...";
+    cin.get();
+
+    //  Cerrar sesión
+    usuarioActual = nullptr;
 }
 
 string Aplicacion::obtenerFechaActual() {
@@ -665,8 +893,10 @@ void Aplicacion::verMisFavoritos() {
     cout << "\n=== MI LISTA DE FAVORITOS ===" << endl;
 
     ListaFavoritos* favoritos = usuarioActual->getListaFavoritos();
+    MedidorRecursos::registrarIteracion();
 
     if (favoritos->getCantidadCanciones() == 0) {
+        MedidorRecursos::registrarIteracion();
         cout << "No tienes canciones en favoritos aun." << endl;
     } else {
         cout << "Total: " << favoritos->getCantidadCanciones() << " / 10,000\n" << endl;
@@ -675,9 +905,11 @@ void Aplicacion::verMisFavoritos() {
         int cantidad = favoritos->getCantidadCanciones();
 
         for (int i = 0; i < cantidad; i++) {
+            MedidorRecursos::registrarIteracion();
             Cancion* cancion = gestorCanciones->buscarPorId(ids[i]);
 
             if (cancion != nullptr) {
+                MedidorRecursos::registrarIteracion();
                 cout << "----------------------------------------" << endl;
                 cout << "[" << (i + 1) << "] ";
                 cancion->mostrarInfo();
@@ -695,8 +927,10 @@ void Aplicacion::eliminarDeFavoritos() {
     cout << "\n=== ELIMINAR CANCION DE FAVORITOS ===" << endl;
 
     ListaFavoritos* favoritos = usuarioActual->getListaFavoritos();
+    MedidorRecursos::registrarIteracion();
 
     if (favoritos->getCantidadCanciones() == 0) {
+        MedidorRecursos::registrarIteracion();
         cout << "No tienes canciones en favoritos." << endl;
         cout << "Presione Enter...";
         cin.get();
@@ -708,6 +942,7 @@ void Aplicacion::eliminarDeFavoritos() {
     int cantidad = favoritos->getCantidadCanciones();
 
     for (int i = 0; i < cantidad; i++) {
+        MedidorRecursos::registrarIteracion();
         Cancion* c = gestorCanciones->buscarPorId(ids[i]);
         if (c != nullptr) {
             cout << "[" << (i + 1) << "] ID: " << ids[i]
@@ -721,6 +956,7 @@ void Aplicacion::eliminarDeFavoritos() {
     long idCancion;
     try {
         idCancion = stol(idInput);
+        MedidorRecursos::registrarIteracion();
     } catch (...) {
         cout << "\n[ERROR] ID invalido." << endl;
         cout << "Presione Enter...";
@@ -729,6 +965,7 @@ void Aplicacion::eliminarDeFavoritos() {
     }
 
     if (favoritos->eliminarCancion(idCancion)) {
+        MedidorRecursos::registrarIteracion();
         string rutaFavoritos = "data/favoritos_" + usuarioActual->getNickname() + ".txt";
         favoritos->guardarEnArchivo(rutaFavoritos);
         cout << "\n[EXITO] Cancion eliminada de favoritos." << endl;
@@ -746,8 +983,10 @@ void Aplicacion::seguirUsuario() {
     cout << "\n=== SEGUIR LISTA DE OTRO USUARIO ===" << endl;
     cout << "Ingrese el nickname del usuario: ";
     getline(cin, nicknameASeguir);
+    MedidorRecursos::registrarIteracion();
 
     if (nicknameASeguir == usuarioActual->getNickname()) {
+        MedidorRecursos::registrarIteracion();
         cout << "\n[ERROR] No puedes seguirte a ti mismo." << endl;
         cout << "Presione Enter...";
         cin.get();
@@ -757,6 +996,7 @@ void Aplicacion::seguirUsuario() {
     Usuario* usuarioSeguir = gestorUsuarios->buscarUsuario(nicknameASeguir);
 
     if (usuarioSeguir == nullptr) {
+        MedidorRecursos::registrarIteracion();
         cout << "\n[ERROR] El usuario no existe." << endl;
         cout << "Presione Enter...";
         cin.get();
@@ -764,6 +1004,7 @@ void Aplicacion::seguirUsuario() {
     }
 
     if (!usuarioSeguir->esPremium()) {
+        MedidorRecursos::registrarIteracion();
         cout << "\n[ERROR] Solo puedes seguir usuarios Premium." << endl;
         cout << "Presione Enter...";
         cin.get();
@@ -773,6 +1014,7 @@ void Aplicacion::seguirUsuario() {
     GestorSeguimiento* gestor = usuarioActual->getGestorSeguimiento();
 
     if (gestor->seguirUsuario(nicknameASeguir)) {
+        MedidorRecursos::registrarIteracion();
         string rutaSeguidos = "data/seguidos_" + usuarioActual->getNickname() + ".txt";
         gestor->guardarEnArchivo(rutaSeguidos);
         cout << "\n[EXITO] Ahora sigues a " << nicknameASeguir << endl;

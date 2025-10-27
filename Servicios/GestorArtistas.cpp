@@ -1,4 +1,5 @@
 #include "GestorArtistas.h"
+#include "Servicios/MedidorRecursos.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -111,12 +112,14 @@ void GestorArtistas::mostrarOrdenadoPorTendencia() const {
     // Crear copia temporal para ordenar
     Artista** temp = new Artista*[cantidadArtistas];
     for (int i = 0; i < cantidadArtistas; i++) {
+        MedidorRecursos::registrarIteracion();
         temp[i] = artistas[i];
     }
 
     // Ordenar por posición de tendencia (bubble sort)
     for (int i = 0; i < cantidadArtistas - 1; i++) {
         for (int j = 0; j < cantidadArtistas - i - 1; j++) {
+            MedidorRecursos::registrarIteracion();
             if (temp[j]->getPosicionTendencia() > temp[j + 1]->getPosicionTendencia()) {
                 Artista* aux = temp[j];
                 temp[j] = temp[j + 1];
@@ -127,6 +130,7 @@ void GestorArtistas::mostrarOrdenadoPorTendencia() const {
 
     // Mostrar
     for (int i = 0; i < cantidadArtistas; i++) {
+         MedidorRecursos::registrarIteracion();
         cout << "\n[" << (i + 1) << "] ";
         temp[i]->mostrarInfo();
         cout << "----------------------------------------" << endl;

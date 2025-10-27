@@ -11,6 +11,7 @@ SOURCES += \
     Servicios/GestorPublicidades.cpp \
     Servicios/GestorSeguimiento.cpp \
         Servicios/GestorUsuarios.cpp \
+    Servicios/MedidorRecursos.cpp \
         main.cpp \
     modelos/Album.cpp \
     modelos/Artista.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     Servicios/GestorPublicidades.h \
     Servicios/GestorSeguimiento.h \
     Servicios/GestorUsuarios.h \
+    Servicios/MedidorRecursos.h \
     modelos/Album.h \
     modelos/Artista.h \
     modelos/Cancion.h \

@@ -5,6 +5,7 @@ release/GestorCanciones.o
 release/GestorPublicidades.o
 release/GestorSeguimiento.o
 release/GestorUsuarios.o
+release/MedidorRecursos.o
 release/main.o
 release/Album.o
 release/Artista.o

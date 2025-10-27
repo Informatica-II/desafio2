@@ -1,4 +1,5 @@
 #include "Servicios/GestorCanciones.h"
+#include "Servicios/MedidorRecursos.h"
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -96,6 +97,7 @@ Cancion* GestorCanciones::obtenerCancionAleatoria() {
     if (cantidadCanciones == 0) return nullptr;
 
     int indice = rand() % cantidadCanciones;
+    MedidorRecursos::registrarIteracion();
     cout << "[DEBUG] Cancion aleatoria seleccionada: " << canciones[indice]->getNombre() << endl;
     cout << "[DEBUG] Indice aleatorio: " << indice << endl;
     return canciones[indice];
@@ -125,6 +127,7 @@ void GestorCanciones::mostrarTodas() const {
 
 Cancion* GestorCanciones::buscarPorId(long id) {
     for (int i = 0; i < cantidadCanciones; i++) {
+        MedidorRecursos::registrarIteracion();
         if (canciones[i]->getIdCancion() == id) {
             return canciones[i];
         }
