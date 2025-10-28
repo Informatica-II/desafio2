@@ -1089,15 +1089,23 @@ void Aplicacion::seguirUsuario() {
         return;
     }
 
-    GestorSeguimiento* gestor = usuarioActual->getGestorSeguimiento();
+    ListaFavoritos* miLista = usuarioActual->getListaFavoritos();
+    ListaFavoritos* listaDelSeguido = usuarioSeguir->getListaFavoritos();
 
-    if (gestor->seguirUsuario(nicknameASeguir)) {
+    GestorSeguimiento* gestor = usuarioActual->getGestorSeguimiento();
+    if (gestor->seguirUsuario(nicknameASeguir, miLista, listaDelSeguido)) {
         MedidorRecursos::registrarIteracion();
+        // Guardar cambios en el archivo de seguidos
+
         string rutaSeguidos = "data/seguidos_" + usuarioActual->getNickname() + ".txt";
         gestor->guardarEnArchivo(rutaSeguidos);
-        cout << "\n[EXITO] Ahora sigues a " << nicknameASeguir << endl;
+
+        // Guardar cambios en el archivo de favoritos (ya que tu lista ha cambiado)
+        string rutaFavoritos = "data/favoritos_" + usuarioActual->getNickname() + ".txt";
+        miLista->guardarEnArchivo(rutaFavoritos);
+
     } else {
-        cout << "\n[ERROR] Ya sigues a este usuario." << endl;
+        cout << "\n[ADVERTENCIA] Ya sigues a este usuario." << endl;
     }
 
     cout << "Presione Enter...";

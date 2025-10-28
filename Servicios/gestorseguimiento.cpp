@@ -24,19 +24,30 @@ void GestorSeguimiento::redimensionar() {
     usuariosSeguidos = nuevo;
 }
 
-bool GestorSeguimiento::seguirUsuario(const string& nickname) {
-    // Verificar si ya lo sigue
+bool GestorSeguimiento::seguirUsuario(const string& nickname, ListaFavoritos* miLista, ListaFavoritos* listaDelSeguido) {
+    // Verificar si ya lo sigue (usando estaSiguiendo)
     if (estaSiguiendo(nickname)) {
         return false;
     }
 
-    // Redimensionar si es necesario
-    if (cantidadSeguidos >= capacidad) {
-        redimensionar();
+    // Realizar la acción de seguir (usando el auxiliar para registrarlo)
+    // El auxiliar registra el nickname y maneja la redimensión.
+    registrarSeguimiento(nickname);
+
+    //  FUSIÓN DE FAVORITOS
+    if (listaDelSeguido != nullptr && miLista != nullptr) {
+        // ... (Tu lógica de fusión de listas, que es la parte de negocio) ...
+        long* cancionesSeguido = listaDelSeguido->getIdsCanciones();
+        int cantSeguido = listaDelSeguido->getCantidadCanciones();
+
+        for (int i = 0; i < cantSeguido; i++) {
+            miLista->agregarCancion(cancionesSeguido[i]);
+        }
+        cout << "[OK] Se ha comenzado a seguir a " << nickname << " y se fusionaron sus favoritos." << endl;
+    } else {
+        cout << "[OK] Se ha comenzado a seguir a " << nickname << "." << endl;
     }
 
-    usuariosSeguidos[cantidadSeguidos] = nickname;
-    cantidadSeguidos++;
     return true;
 }
 
@@ -75,6 +86,23 @@ void GestorSeguimiento::limpiar() {
     cantidadSeguidos = 0;
 }
 
+bool GestorSeguimiento::registrarSeguimiento(const string& nickname) {
+    // 1. Verificar si ya lo sigue
+    if (estaSiguiendo(nickname)) {
+        return false;
+    }
+
+    // 2. Redimensionar si es necesario
+    if (cantidadSeguidos >= capacidad) {
+        redimensionar();
+    }
+
+    // 3. Registrar el seguimiento
+    usuariosSeguidos[cantidadSeguidos] = nickname;
+    cantidadSeguidos++;
+    return true;
+}
+
 bool GestorSeguimiento::cargarDesdeArchivo(const string& rutaArchivo) {
     ifstream archivo(rutaArchivo);
     if (!archivo.is_open()) {
@@ -86,7 +114,8 @@ bool GestorSeguimiento::cargarDesdeArchivo(const string& rutaArchivo) {
 
     while (getline(archivo, linea)) {
         if (!linea.empty()) {
-            seguirUsuario(linea);
+
+            registrarSeguimiento(linea);
         }
     }
 
