@@ -87,17 +87,17 @@ void GestorSeguimiento::limpiar() {
 }
 
 bool GestorSeguimiento::registrarSeguimiento(const string& nickname) {
-    // 1. Verificar si ya lo sigue
+    //  Verificar si ya lo sigue
     if (estaSiguiendo(nickname)) {
         return false;
     }
 
-    // 2. Redimensionar si es necesario
+    // Redimensionar si es necesario
     if (cantidadSeguidos >= capacidad) {
         redimensionar();
     }
 
-    // 3. Registrar el seguimiento
+    // Registrar el seguimiento
     usuariosSeguidos[cantidadSeguidos] = nickname;
     cantidadSeguidos++;
     return true;

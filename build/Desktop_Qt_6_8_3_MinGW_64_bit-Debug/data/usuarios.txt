@@ -8,3 +8,4 @@ Andres147|Sergio123|premium|Medellin|Colombia|2025-10-21
 checho|123|premium|Medellin|Colombia|2025-10-22
 anibal|123|estandar|medellin|colombia|2025-10-22
 carta|123456|premium|cartagena|colombia|2025-10-26
+oscar|1234|premium|Medellin|Colombia|2025-10-27

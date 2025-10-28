@@ -45,6 +45,7 @@ public:
     void setCiudad(string city);
     void setPais(string country);
     void setFechaInscripcion(string fecha);
+    void setListaFavoritos(ListaFavoritos* lista);
 
     // Métodos
     bool esPremium() const;

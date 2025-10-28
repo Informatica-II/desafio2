@@ -973,28 +973,42 @@ void Aplicacion::verMisFavoritos() {
     ListaFavoritos* favoritos = usuarioActual->getListaFavoritos();
     MedidorRecursos::registrarIteracion();
 
+    // Verificar si la lista existe
+    if (favoritos == nullptr) {
+        MedidorRecursos::registrarIteracion();
+        cout << "\n[INFO] No tienes ninguna cancion en tu lista de favoritos." << endl;
+        cout << "Agrega canciones primero para verlas aqui." << endl;
+        cout << "\nPresione Enter...";
+        cin.get();
+        return;
+    }
+
+    //  Verificar si la lista está vacía
     if (favoritos->getCantidadCanciones() == 0) {
         MedidorRecursos::registrarIteracion();
-        cout << "No tienes canciones en favoritos aun." << endl;
-    } else {
-        cout << "Total: " << favoritos->getCantidadCanciones() << " / 10,000\n" << endl;
-
-        long* ids = favoritos->getIdsCanciones();
-        int cantidad = favoritos->getCantidadCanciones();
-
-        for (int i = 0; i < cantidad; i++) {
-            MedidorRecursos::registrarIteracion();
-            Cancion* cancion = gestorCanciones->buscarPorId(ids[i]);
-
-            if (cancion != nullptr) {
-                MedidorRecursos::registrarIteracion();
-                cout << "----------------------------------------" << endl;
-                cout << "[" << (i + 1) << "] ";
-                cancion->mostrarInfo();
-            }
-        }
-        cout << "----------------------------------------" << endl;
+        cout << "\n[INFO] No tienes canciones en favoritos aun." << endl;
+        cout << "Agrega canciones primero para verlas aqui." << endl;
+        cout << "\nPresione Enter...";
+        cin.get();
+        return;
     }
+
+    // Mostrar las canciones
+    cout << "Total: " << favoritos->getCantidadCanciones() << " / 10,000\n" << endl;
+    long* ids = favoritos->getIdsCanciones();
+    int cantidad = favoritos->getCantidadCanciones();
+
+    for (int i = 0; i < cantidad; i++) {
+        MedidorRecursos::registrarIteracion();
+        Cancion* cancion = gestorCanciones->buscarPorId(ids[i]);
+        if (cancion != nullptr) {
+            MedidorRecursos::registrarIteracion();
+            cout << "----------------------------------------" << endl;
+            cout << "[" << (i + 1) << "] ";
+            cancion->mostrarInfo();
+        }
+    }
+    cout << "----------------------------------------" << endl;
 
     cout << "\nPresione Enter...";
     cin.get();
@@ -1088,25 +1102,43 @@ void Aplicacion::seguirUsuario() {
         cin.get();
         return;
     }
-
+    // Obtener mi lista (si no existe, crearla)
     ListaFavoritos* miLista = usuarioActual->getListaFavoritos();
-    ListaFavoritos* listaDelSeguido = usuarioSeguir->getListaFavoritos();
+    if (miLista == nullptr) {
+        miLista = new ListaFavoritos();
+        // Cargar mis favoritos desde archivo si existen
+        string rutaMisFavoritos = "data/favoritos_" + usuarioActual->getNickname() + ".txt";
+        miLista->cargarDesdeArchivo(rutaMisFavoritos);
+        // Aquí SÍ necesitarías el setter, PERO es mejor que esto lo hagas en el login
+    }
+
+    // Cargar la lista del usuario a seguir DESDE SU ARCHIVO
+    ListaFavoritos* listaDelSeguido = new ListaFavoritos();
+    string rutaFavoritosSeguido = "data/favoritos_" + nicknameASeguir + ".txt";
+
+    if (!listaDelSeguido->cargarDesdeArchivo(rutaFavoritosSeguido)) {
+        // Si no tiene archivo de favoritos, crear lista vacía
+        cout << "\n[INFO] El usuario " << nicknameASeguir << " no tiene canciones en favoritos aun." << endl;
+    }
 
     GestorSeguimiento* gestor = usuarioActual->getGestorSeguimiento();
+
     if (gestor->seguirUsuario(nicknameASeguir, miLista, listaDelSeguido)) {
         MedidorRecursos::registrarIteracion();
-        // Guardar cambios en el archivo de seguidos
 
+        // Guardar cambios en el archivo de seguidos
         string rutaSeguidos = "data/seguidos_" + usuarioActual->getNickname() + ".txt";
         gestor->guardarEnArchivo(rutaSeguidos);
 
-        // Guardar cambios en el archivo de favoritos (ya que tu lista ha cambiado)
+        // Guardar cambios en el archivo de favoritos (ahora tiene las nuevas canciones)
         string rutaFavoritos = "data/favoritos_" + usuarioActual->getNickname() + ".txt";
         miLista->guardarEnArchivo(rutaFavoritos);
-
     } else {
         cout << "\n[ADVERTENCIA] Ya sigues a este usuario." << endl;
     }
+
+    // Liberar la memoria de la lista temporal del seguido
+    delete listaDelSeguido;
 
     cout << "Presione Enter...";
     cin.get();
