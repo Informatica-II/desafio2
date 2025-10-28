@@ -16,6 +16,7 @@ SOURCES += \
     modelos/Album.cpp \
     modelos/Artista.cpp \
         modelos/Cancion.cpp \
+    modelos/Credito.cpp \
     modelos/ListaFavoritos.cpp \
     modelos/Publicidad.cpp \
         modelos/Reproductor.cpp \
@@ -34,6 +35,7 @@ HEADERS += \
     modelos/Album.h \
     modelos/Artista.h \
     modelos/Cancion.h \
+    modelos/Credito.h \
     modelos/ListaFavoritos.h \
     modelos/Publicidad.h \
     modelos/Reproductor.h \

@@ -62,6 +62,7 @@ SOURCES       = ..\..\Aplicacion.cpp \
 		..\..\modelos\Album.cpp \
 		..\..\modelos\Artista.cpp \
 		..\..\modelos\Cancion.cpp \
+		..\..\modelos\Credito.cpp \
 		..\..\modelos\ListaFavoritos.cpp \
 		..\..\modelos\Publicidad.cpp \
 		..\..\modelos\Reproductor.cpp \
@@ -78,6 +79,7 @@ OBJECTS       = debug/Aplicacion.o \
 		debug/Album.o \
 		debug/Artista.o \
 		debug/Cancion.o \
+		debug/Credito.o \
 		debug/ListaFavoritos.o \
 		debug/Publicidad.o \
 		debug/Reproductor.o \
@@ -94,6 +96,7 @@ DIST          =  Aplicacion.h \
 		modelos/Album.h \
 		modelos/Artista.h \
 		modelos/Cancion.h \
+		modelos/Credito.h \
 		modelos/ListaFavoritos.h \
 		modelos/Publicidad.h \
 		modelos/Reproductor.h \
@@ -109,6 +112,7 @@ DIST          =  Aplicacion.h \
 		..\..\modelos\Album.cpp \
 		..\..\modelos\Artista.cpp \
 		..\..\modelos\Cancion.cpp \
+		..\..\modelos\Credito.cpp \
 		..\..\modelos\ListaFavoritos.cpp \
 		..\..\modelos\Publicidad.cpp \
 		..\..\modelos\Reproductor.cpp \
@@ -135,7 +139,7 @@ dist:
 	$(ZIP) desafio2.zip $(SOURCES) $(DIST) ..\..\..\..\desafio2.pro C:\Qt\6.8.3\mingw_64\mkspecs\features\spec_pre.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\device_config.prf C:\Qt\6.8.3\mingw_64\mkspecs\common\sanitize.conf C:\Qt\6.8.3\mingw_64\mkspecs\common\gcc-base.conf C:\Qt\6.8.3\mingw_64\mkspecs\common\g++-base.conf C:\Qt\6.8.3\mingw_64\mkspecs\features\win32\windows_vulkan_sdk.prf C:\Qt\6.8.3\mingw_64\mkspecs\common\windows-vulkan.conf C:\Qt\6.8.3\mingw_64\mkspecs\common\g++-win32.conf C:\Qt\6.8.3\mingw_64\mkspecs\common\windows-desktop.conf C:\Qt\6.8.3\mingw_64\mkspecs\qconfig.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_ext_freetype.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_ext_libjpeg.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_ext_libpng.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_core.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_entrypoint_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_example_icons_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_examples_asset_downloader_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_fb_support_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_freetype_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_harfbuzz_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_help.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_jpeg_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labsanimation.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labsanimation_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labsplatform.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labsplatform_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labsqmlmodels.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labssettings.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labssettings_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labssharedimage.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labssharedimage_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_linguist.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_network.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_openglwidgets.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_openglwidgets_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_png_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qdoccatch_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qdoccatchconversions_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qdoccatchgenerators_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlassetdownloader.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlassetdownloader_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlcompiler.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlcore.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlcore_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmldom_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlintegration.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlintegration_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmllocalstorage.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlls_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlmeta.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlmeta_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlmodels.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlmodels_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlnetwork.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlnetwork_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmltoolingsettings_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmltyperegistrar_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlworkerscript.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2basic.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2basic_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2basicstyleimpl.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2basicstyleimpl_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2fluentwinui3styleimpl.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2fluentwinui3styleimpl_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2fusion.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2fusion_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2fusionstyleimpl.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2fusionstyleimpl_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2imagine.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2imagine_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2imaginestyleimpl.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2imaginestyleimpl_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2material.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2material_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2materialstyleimpl.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2materialstyleimpl_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2universal.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2universal_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2universalstyleimpl.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2universalstyleimpl_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2windowsstyleimpl.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrols2windowsstyleimpl_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickcontrolstestutilsprivate_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickdialogs2.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickeffects_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quicklayouts.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quicklayouts_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickshapes_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quicktemplates2.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quicktestutilsprivate_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickvectorimage.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickvectorimage_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickvectorimagegenerator_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_svgwidgets.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_svgwidgets_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_testinternals_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_tools_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\6.8.3\mingw_64\mkspecs\features\qt_functions.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\qt_config.prf C:\Qt\6.8.3\mingw_64\mkspecs\win32-g++\qmake.conf C:\Qt\6.8.3\mingw_64\mkspecs\features\spec_post.prf .qmake.stash C:\Qt\6.8.3\mingw_64\mkspecs\features\exclusive_builds.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\toolchain.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\default_pre.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\win32\default_pre.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\resolve_config.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\default_post.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\build_pass.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\win32\console.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\qml_debug.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\precompile_header.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\warn_on.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\qmake_use.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\file_copies.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\testcase_targets.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\exceptions.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\yacc.prf C:\Qt\6.8.3\mingw_64\mkspecs\features\lex.prf ..\..\desafio2.pro      
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\Aplicacion.o debug\GestorAlbumes.o debug\GestorArtistas.o debug\GestorCanciones.o debug\GestorPublicidades.o debug\GestorSeguimiento.o debug\GestorUsuarios.o debug\MedidorRecursos.o debug\main.o debug\Album.o debug\Artista.o debug\Cancion.o debug\ListaFavoritos.o debug\Publicidad.o debug\Reproductor.o debug\Usuarios.o
+	-$(DEL_FILE) debug\Aplicacion.o debug\GestorAlbumes.o debug\GestorArtistas.o debug\GestorCanciones.o debug\GestorPublicidades.o debug\GestorSeguimiento.o debug\GestorUsuarios.o debug\MedidorRecursos.o debug\main.o debug\Album.o debug\Artista.o debug\Cancion.o debug\Credito.o debug\ListaFavoritos.o debug\Publicidad.o debug\Reproductor.o debug\Usuarios.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -167,6 +171,7 @@ debug/Aplicacion.o: ../../Aplicacion.cpp ../../Aplicacion.h \
 		../../Servicios/gestorseguimiento.h \
 		../../Servicios/GestorCanciones.h \
 		../../modelos/Cancion.h \
+		../../modelos/Credito.h \
 		../../Servicios/GestorArtistas.h \
 		../../modelos/Artista.h \
 		../../Servicios/GestorAlbumes.h \
@@ -182,11 +187,13 @@ debug/GestorAlbumes.o: ../../Servicios/GestorAlbumes.cpp ../../Servicios/GestorA
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\GestorAlbumes.o ..\..\Servicios\GestorAlbumes.cpp
 
 debug/GestorArtistas.o: ../../Servicios/GestorArtistas.cpp ../../Servicios/GestorArtistas.h \
-		../../modelos/Artista.h
+		../../modelos/Artista.h \
+		../../Servicios/MedidorRecursos.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\GestorArtistas.o ..\..\Servicios\GestorArtistas.cpp
 
 debug/GestorCanciones.o: ../../Servicios/GestorCanciones.cpp ../../Servicios/GestorCanciones.h \
 		../../modelos/Cancion.h \
+		../../modelos/Credito.h \
 		../../Servicios/MedidorRecursos.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\GestorCanciones.o ..\..\Servicios\GestorCanciones.cpp
 
@@ -209,6 +216,7 @@ debug/MedidorRecursos.o: ../../Servicios/MedidorRecursos.cpp ../../Servicios/Med
 		../../modelos/listafavoritos.h \
 		../../Servicios/gestorseguimiento.h \
 		../../modelos/Cancion.h \
+		../../modelos/Credito.h \
 		../../modelos/Artista.h \
 		../../modelos/Album.h \
 		../../modelos/Publicidad.h \
@@ -228,6 +236,7 @@ debug/main.o: ../../main.cpp ../../Aplicacion.h \
 		../../Servicios/gestorseguimiento.h \
 		../../Servicios/GestorCanciones.h \
 		../../modelos/Cancion.h \
+		../../modelos/Credito.h \
 		../../Servicios/GestorArtistas.h \
 		../../modelos/Artista.h \
 		../../Servicios/GestorAlbumes.h \
@@ -244,8 +253,12 @@ debug/Album.o: ../../modelos/Album.cpp ../../modelos/Album.h
 debug/Artista.o: ../../modelos/Artista.cpp ../../modelos/Artista.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\Artista.o ..\..\modelos\Artista.cpp
 
-debug/Cancion.o: ../../modelos/Cancion.cpp ../../modelos/Cancion.h
+debug/Cancion.o: ../../modelos/Cancion.cpp ../../modelos/Cancion.h \
+		../../modelos/Credito.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\Cancion.o ..\..\modelos\Cancion.cpp
+
+debug/Credito.o: ../../modelos/Credito.cpp ../../modelos/Credito.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\Credito.o ..\..\modelos\Credito.cpp
 
 debug/ListaFavoritos.o: ../../modelos/ListaFavoritos.cpp ../../modelos/listafavoritos.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\ListaFavoritos.o ..\..\modelos\ListaFavoritos.cpp
@@ -255,6 +268,7 @@ debug/Publicidad.o: ../../modelos/Publicidad.cpp ../../modelos/Publicidad.h
 
 debug/Reproductor.o: ../../modelos/Reproductor.cpp ../../modelos/Reproductor.h \
 		../../modelos/Cancion.h \
+		../../modelos/Credito.h \
 		../../modelos/Publicidad.h \
 		../../Servicios/GestorCanciones.h \
 		../../Servicios/GestorPublicidades.h \

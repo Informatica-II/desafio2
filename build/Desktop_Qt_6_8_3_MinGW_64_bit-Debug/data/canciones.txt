@@ -1,31 +1,96 @@
-idCancion|idArtista|idAlbum|nombre|duracion|reproducciones|rutaBase
-100010101|10001|01|Chantaje|195|85000000|/users/storage/shakira/audio/
-100010102|10001|01|Me Enamore|214|45000000|/users/storage/shakira/audio/
-100010103|10001|01|Perro Fiel|193|62000000|/users/storage/shakira/audio/
-100010104|10001|01|Nada|219|38000000|/users/storage/shakira/audio/
-100010105|10001|01|Coconut Tree|184|29000000|/users/storage/shakira/audio/
-100020101|10001|02|Ultima|198|12000000|/users/storage/shakira/audio/
-100020102|10001|02|Te Felicito|212|95000000|/users/storage/shakira/audio/
-100020103|10001|02|Monotonia|189|78000000|/users/storage/shakira/audio/
-100020201|10002|01|Rojo|176|95000000|/users/storage/j_balvin/audio/
-100020202|10002|01|Morado|189|78000000|/users/storage/j_balvin/audio/
-100020203|10002|01|Azul|167|71000000|/users/storage/j_balvin/audio/
-100020204|10002|01|Amarillo|201|83000000|/users/storage/j_balvin/audio/
-100020205|10002|01|Verde|178|69000000|/users/storage/j_balvin/audio/
-100030101|10003|01|TQG|203|120000000|/users/storage/karol_g/audio/
-100030102|10003|01|Provenza|164|98000000|/users/storage/karol_g/audio/
-100030103|10003|01|Cairo|186|76000000|/users/storage/karol_g/audio/
-100030104|10003|01|Gatubela|195|88000000|/users/storage/karol_g/audio/
-100030105|10003|01|X Si Volvemos|211|65000000|/users/storage/karol_g/audio/
-100040101|10004|01|Borro Cassette|225|67000000|/users/storage/maluma/audio/
-100040102|10004|01|El Perdedor|234|89000000|/users/storage/maluma/audio/
-100040103|10004|01|Sin Contrato|198|54000000|/users/storage/maluma/audio/
-100040104|10004|01|Carnaval|207|61000000|/users/storage/maluma/audio/
-100050101|10005|01|La Gota Fria|234|45000000|/users/storage/carlos_vives/audio/
-100050102|10005|01|La Tierra del Olvido|198|52000000|/users/storage/carlos_vives/audio/
-100050103|10005|01|Volvi a Nacer|223|38000000|/users/storage/carlos_vives/audio/
-100050104|10005|01|Pa Mayte|189|41000000|/users/storage/carlos_vives/audio/
-100050105|10005|01|Fruta Fresca|176|35000000|/users/storage/carlos_vives/audio/
-100050106|10005|01|Carito|201|39000000|/users/storage/carlos_vives/audio/
-100050107|10005|01|La Casa en el Aire|215|47000000|/users/storage/carlos_vives/audio/
-100050108|10005|01|Déjame Entrar|194|33000000|/users/storage/carlos_vives/audio/
+idCancion|nombre|duracion|reproducciones|rutaAudio|rutaImagen|creditos
+100010101|Bohemian Rhapsody|354|1500000|/storage/audio/|/storage/images/|P:Freddie,Mercury,SACC001234;P:Brian,May,SACC001235|M:John,Deacon,SACC001236;M:Roger,Taylor,SACC001237|C:Freddie,Mercury,SACC001234
+100010102|Killer Queen|180|1200000|/storage/audio/|/storage/images/|P:Roy,Thomas Baker,SACC001238|M:Brian,May,SACC001235;M:Roger,Taylor,SACC001237|C:Freddie,Mercury,SACC001234
+100010103|Somebody to Love|296|1100000|/storage/audio/|/storage/images/|P:Queen,SACC001239|M:John,Deacon,SACC001236;M:Roger,Taylor,SACC001237|C:Freddie,Mercury,SACC001234
+100010104|Don't Stop Me Now|209|1800000|/storage/audio/|/storage/images/|P:Mack,SACC001240|M:Brian,May,SACC001235|C:Freddie,Mercury,SACC001234
+100010105|Crazy Little Thing Called Love|160|900000|/storage/audio/|/storage/images/|P:Mack,SACC001240|M:Roger,Taylor,SACC001237|C:Freddie,Mercury,SACC001234
+100010106|A Kind of Magic|265|750000|/storage/audio/|/storage/images/|P:David,Richards,SACC001241|M:John,Deacon,SACC001236|C:Roger,Taylor,SACC001237
+100010107|We Will Rock You|122|2000000|/storage/audio/|/storage/images/|P:Brian,May,SACC001235|M:Brian,May,SACC001235;M:Roger,Taylor,SACC001237|C:Brian,May,SACC001235
+100010108|I Want to Break Free|258|850000|/storage/audio/|/storage/images/|P:Mack,SACC001240|M:Freddie,Mercury,SACC001234|C:John,Deacon,SACC001236
+100010109|Another One Bites the Dust|215|1400000|/storage/audio/|/storage/images/|P:Queen,SACC001239|M:Roger,Taylor,SACC001237|C:John,Deacon,SACC001236
+100010110|Radio Ga Ga|348|950000|/storage/audio/|/storage/images/|P:Mack,SACC001240|M:Brian,May,SACC001235|C:Roger,Taylor,SACC001237
+100010201|Imagine|183|3500000|/storage/audio/|/storage/images/|P:Phil,Spector,SACC002001|M:John,Lennon,SACC002002;M:Klaus,Voormann,SACC002003|C:John,Lennon,SACC002002
+100010202|Give Peace a Chance|290|1500000|/storage/audio/|/storage/images/|P:John,Lennon,SACC002002|M:John,Lennon,SACC002002;M:Yoko,Ono,SACC002004|C:John,Lennon,SACC002002
+100010203|Jealous Guy|254|1800000|/storage/audio/|/storage/images/|P:Phil,Spector,SACC002001|M:John,Lennon,SACC002002;M:Alan,White,SACC002005|C:John,Lennon,SACC002002
+100010204|Mind Games|262|1100000|/storage/audio/|/storage/images/|P:John,Lennon,SACC002002|M:Jim,Keltner,SACC002006;M:David,Spinozza,SACC002007|C:John,Lennon,SACC002002
+100010205|Woman|206|950000|/storage/audio/|/storage/images/|P:John,Lennon,SACC002002|M:Hugh,McCracken,SACC002008;M:Tony,Levin,SACC002009|C:John,Lennon,SACC002002
+200020101|Shape of You|233|4200000|/storage/audio/|/storage/images/|P:Steve,Mac,SACC003001;P:Ed,Sheeran,SACC003002|M:Ed,Sheeran,SACC003002;M:Johnny,McDaid,SACC003003|C:Ed,Sheeran,SACC003002;C:Steve,Mac,SACC003001
+200020102|Perfect|263|3800000|/storage/audio/|/storage/images/|P:Will,Hicks,SACC003004|M:Ed,Sheeran,SACC003002|C:Ed,Sheeran,SACC003002
+200020103|Thinking Out Loud|281|3500000|/storage/audio/|/storage/images/|P:Jake,Gosling,SACC003005|M:Ed,Sheeran,SACC003002;M:Chris,Leonard,SACC003006|C:Ed,Sheeran,SACC003002;C:Amy,Wadge,SACC003007
+200020104|Castle on the Hill|261|2900000|/storage/audio/|/storage/images/|P:Benny,Blanco,SACC003008|M:Ed,Sheeran,SACC003002|C:Ed,Sheeran,SACC003002
+200020105|Photograph|259|2500000|/storage/audio/|/storage/images/|P:Jeff,Bhasker,SACC003009|M:Ed,Sheeran,SACC003002;M:Snow,Patrol,SACC003010|C:Ed,Sheeran,SACC003002;C:Johnny,McDaid,SACC003003
+200020201|Bad Habits|231|2100000|/storage/audio/|/storage/images/|P:Fred,Gibson,SACC003011|M:Ed,Sheeran,SACC003002;M:Johnny,McDaid,SACC003003|C:Ed,Sheeran,SACC003002;C:Fred,Gibson,SACC003011
+200020202|Shivers|207|1900000|/storage/audio/|/storage/images/|P:Steve,Mac,SACC003001;P:Fred,Gibson,SACC003011|M:Ed,Sheeran,SACC003002|C:Ed,Sheeran,SACC003002;C:Steve,Mac,SACC003001
+200020203|Overpass Graffiti|236|1500000|/storage/audio/|/storage/images/|P:Jonny,Hawkins,SACC003012|M:Ed,Sheeran,SACC003002|C:Ed,Sheeran,SACC003002
+200020204|The Joker and the Queen|185|1200000|/storage/audio/|/storage/images/|P:Ed,Sheeran,SACC003002|M:Ed,Sheeran,SACC003002;M:Sam,Roman,SACC003013|C:Ed,Sheeran,SACC003002
+200020205|Visiting Hours|215|900000|/storage/audio/|/storage/images/|P:Johnny,McDaid,SACC003003|M:Ed,Sheeran,SACC003002|C:Ed,Sheeran,SACC003002
+300030101|Blinding Lights|200|5000000|/storage/audio/|/storage/images/|P:Max,Martin,SACC004001;P:Oscar,Holter,SACC004002|M:The Weeknd,SACC004003;M:Belly,SACC004004|C:The Weeknd,SACC004003;C:Max,Martin,SACC004001;C:Belly,SACC004004
+300030102|Save Your Tears|205|4500000|/storage/audio/|/storage/images/|P:Max,Martin,SACC004001|M:The Weeknd,SACC004003;M:Oscar,Holter,SACC004002|C:The Weeknd,SACC004003;C:Max,Martin,SACC004001
+300030103|In Your Eyes|237|3500000|/storage/audio/|/storage/images/|P:Max,Martin,SACC004001|M:The Weeknd,SACC004003;M:DaHeala,SACC004005|C:The Weeknd,SACC004003;C:DaHeala,SACC004005
+300030104|Heartless|198|3000000|/storage/audio/|/storage/images/|P:Metro,Boomin,SACC004006|M:The Weeknd,SACC004003;M:Metro,Boomin,SACC004006|C:The Weeknd,SACC004003;C:Metro,Boomin,SACC004006
+300030105|Take My Breath|220|2500000|/storage/audio/|/storage/images/|P:Oscar,Holter,SACC004002|M:The Weeknd,SACC004003;M:Max,Martin,SACC004001|C:The Weeknd,SACC004003;C:Oscar,Holter,SACC004002
+300030201|Starboy|230|4000000|/storage/audio/|/storage/images/|P:Daft,Punk,SACC004007|M:The Weeknd,SACC004003;M:Daft,Punk,SACC004007|C:The Weeknd,SACC004003;C:Daft,Punk,SACC004007
+300030202|I Feel It Coming|271|3900000|/storage/audio/|/storage/images/|P:Daft,Punk,SACC004007|M:The Weeknd,SACC004003;M:Daft,Punk,SACC004007|C:The Weeknd,SACC004003;C:Daft,Punk,SACC004007
+300030203|Die For You|260|3200000|/storage/audio/|/storage/images/|P:Cirkut,SACC004008|M:The Weeknd,SACC004003;M:Doc,McKinney,SACC004009|C:The Weeknd,SACC004003;C:Doc,McKinney,SACC004009
+300030204|Party Monster|265|2800000|/storage/audio/|/storage/images/|P:Benny,Blanco,SACC003008|M:The Weeknd,SACC004003;M:Lana,Del Rey,SACC004010|C:The Weeknd,SACC004003
+300030205|False Alarm|210|2000000|/storage/audio/|/storage/images/|P:Benny,Blanco,SACC003008|M:The Weeknd,SACC004003;M:Cirkut,SACC004008|C:The Weeknd,SACC004003;C:Benny,Blanco,SACC003008
+400040101|Highway to Hell|208|3000000|/storage/audio/|/storage/images/|P:Robert,Lange,SACC005001|M:Angus,Young,SACC005002;M:Malcolm,Young,SACC005003|C:Bon,Scott,SACC005004;C:Angus,Young,SACC005002
+400040102|Back in Black|255|3800000|/storage/audio/|/storage/images/|P:Robert,Lange,SACC005001|M:Brian,Johnson,SACC005005;M:Cliff,Williams,SACC005006|C:Angus,Young,SACC005002;C:Malcolm,Young,SACC005003
+400040103|Thunderstruck|292|2500000|/storage/audio/|/storage/images/|P:Bruce,Fairbairn,SACC005007|M:Phil,Rudd,SACC005008;M:Cliff,Williams,SACC005006|C:Angus,Young,SACC005002;C:Malcolm,Young,SACC005003
+400040104|Hells Bells|312|2200000|/storage/audio/|/storage/images/|P:Robert,Lange,SACC005001|M:Brian,Johnson,SACC005005;M:Cliff,Williams,SACC005006|C:Angus,Young,SACC005002;C:Malcolm,Young,SACC005003
+400040105|T.N.T.|214|1900000|/storage/audio/|/storage/images/|P:George,Young,SACC005009|M:Bon,Scott,SACC005004;M:Phil,Rudd,SACC005008|C:Bon,Scott,SACC005004;C:Angus,Young,SACC005002
+500050101|Smells Like Teen Spirit|301|4800000|/storage/audio/|/storage/images/|P:Butch,Vig,SACC006001|M:Kurt,Cobain,SACC006002;M:Krist,Novoselic,SACC006003|C:Kurt,Cobain,SACC006002;C:Dave,Grohl,SACC006004
+500050102|Come As You Are|219|3900000|/storage/audio/|/storage/images/|P:Butch,Vig,SACC006001|M:Dave,Grohl,SACC006004;M:Krist,Novoselic,SACC006003|C:Kurt,Cobain,SACC006002
+500050103|Lithium|257|3100000|/storage/audio/|/storage/images/|P:Butch,Vig,SACC006001|M:Kurt,Cobain,SACC006002;M:Dave,Grohl,SACC006004|C:Kurt,Cobain,SACC006002
+500050104|In Bloom|254|2700000|/storage/audio/|/storage/images/|P:Butch,Vig,SACC006001|M:Krist,Novoselic,SACC006003|C:Kurt,Cobain,SACC006002
+500050105|Polly|176|2000000|/storage/audio/|/storage/images/|P:Butch,Vig,SACC006001|M:Kurt,Cobain,SACC006002|C:Kurt,Cobain,SACC006002
+600060101|Billie Jean|292|4000000|/storage/audio/|/storage/images/|P:Quincy,Jones,SACC007001|M:Michael,Jackson,SACC007002;M:Jeff,Porcaro,SACC007003|C:Michael,Jackson,SACC007002
+600060102|Thriller|357|3500000|/storage/audio/|/storage/images/|P:Quincy,Jones,SACC007001|M:Michael,Jackson,SACC007002;M:Eddie,Van Halen,SACC007004|C:Rod,Temperton,SACC007005
+600060103|Smooth Criminal|258|3100000|/storage/audio/|/storage/images/|P:Quincy,Jones,SACC007001|M:Michael,Jackson,SACC007002;M:Bruce,Swedien,SACC007006|C:Michael,Jackson,SACC007002
+600060104|Beat It|258|3000000|/storage/audio/|/storage/images/|P:Quincy,Jones,SACC007001|M:Michael,Jackson,SACC007002;M:Steve,Lukather,SACC007007|C:Michael,Jackson,SACC007002
+600060105|Man in the Mirror|304|2500000|/storage/audio/|/storage/images/|P:Quincy,Jones,SACC007001|M:Michael,Jackson,SACC007002;M:Siedah,Garrett,SACC007008|C:Siedah,Garrett,SACC007008;C:Glen,Ballard,SACC007009
+700070101|Hotel California|390|4500000|/storage/audio/|/storage/images/|P:Bill,Szymczyk,SACC008001|M:Don,Henley,SACC008002;M:Joe,Walsh,SACC008003|C:Don,Felder,SACC008004;C:Don,Henley,SACC008002
+700070102|Take It Easy|205|3000000|/storage/audio/|/storage/images/|P:Glyn,Johns,SACC008005|M:Glenn,Frey,SACC008006;M:Randy,Meisner,SACC008007|C:Jackson,Browne,SACC008008;C:Glenn,Frey,SACC008006
+700070103|One of These Nights|277|2500000|/storage/audio/|/storage/images/|P:Bill,Szymczyk,SACC008001|M:Don,Henley,SACC008002;M:Glenn,Frey,SACC008006|C:Don,Henley,SACC008002;C:Glenn,Frey,SACC008006
+700070104|Desperado|214|1900000|/storage/audio/|/storage/images/|P:Glyn,Johns,SACC008005|M:Don,Henley,SACC008002|C:Don,Henley,SACC008002;C:Glenn,Frey,SACC008006
+700070105|Life in the Fast Lane|286|1500000|/storage/audio/|/storage/images/|P:Bill,Szymczyk,SACC008001|M:Joe,Walsh,SACC008003;M:Don,Henley,SACC008002|C:Joe,Walsh,SACC008003;C:Don,Henley,SACC008002
+800080101|Sweet Child o' Mine|356|3200000|/storage/audio/|/storage/images/|P:Mike,Clink,SACC009001|M:Axl,Rose,SACC009002;M:Slash,SACC009003|C:Axl,Rose,SACC009002;C:Slash,SACC009003
+800080102|Welcome to the Jungle|274|2800000|/storage/audio/|/storage/images/|P:Mike,Clink,SACC009001|M:Duff,McKagan,SACC009004;M:Izzy,Stradlin,SACC009005|C:Axl,Rose,SACC009002
+800080103|November Rain|536|2500000|/storage/audio/|/storage/images/|P:Mike,Clink,SACC009001|M:Axl,Rose,SACC009002;M:Slash,SACC009003|C:Axl,Rose,SACC009002
+800080104|Paradise City|408|2000000|/storage/audio/|/storage/images/|P:Mike,Clink,SACC009001|M:Duff,McKagan,SACC009004;M:Steven,Adler,SACC009006|C:Axl,Rose,SACC009002;C:Duff,McKagan,SACC009004
+800080105|Patience|332|1500000|/storage/audio/|/storage/images/|P:Mike,Clink,SACC009001|M:Izzy,Stradlin,SACC009005;M:Steven,Adler,SACC009006|C:Izzy,Stradlin,SACC009005
+900090101|Stairway to Heaven|482|5500000|/storage/audio/|/storage/images/|P:Jimmy,Page,SACC010001|M:Robert,Plant,SACC010002;M:John,Paul Jones,SACC010003|C:Jimmy,Page,SACC010001;C:Robert,Plant,SACC010002
+900090102|Kashmir|517|3900000|/storage/audio/|/storage/images/|P:Jimmy,Page,SACC010001|M:John,Bonham,SACC010004;M:John,Paul Jones,SACC010003|C:Jimmy,Page,SACC010001;C:Robert,Plant,SACC010002
+900090103|Whole Lotta Love|330|3000000|/storage/audio/|/storage/images/|P:Jimmy,Page,SACC010001|M:John,Bonham,SACC010004;M:Robert,Plant,SACC010002|C:Jimmy,Page,SACC010001;C:Robert,Plant,SACC010002
+900090104|Black Dog|296|2500000|/storage/audio/|/storage/images/|P:Jimmy,Page,SACC010001|M:John,Paul Jones,SACC010003;M:Robert,Plant,SACC010002|C:John,Paul Jones,SACC010003;C:Jimmy,Page,SACC010001
+900090105|Immigrant Song|165|2100000|/storage/audio/|/storage/images/|P:Jimmy,Page,SACC010001|M:Robert,Plant,SACC010002;M:John,Bonham,SACC010004|C:Jimmy,Page,SACC010001;C:Robert,Plant,SACC010002
+100010101|Chantaje|195|85000000|/storage/shakira/100010101.mp3|/storage/shakira/images/album01.jpg|P:Shakira,SACC10001;P:Maluma,SACC10004|M:Shakira,SACC10001;M:Maluma,SACC10004|C:Shakira,SACC10001;C:Maluma,SACC10004
+100010102|Me Enamore|214|45000000|/storage/shakira/100010102.mp3|/storage/shakira/images/album01.jpg|P:Luis,Fernando Ochoa,SACC10013|M:Shakira,SACC10001;M:Luis,Fernando Ochoa,SACC10013|C:Shakira,SACC10001;C:Rayito,SACC10015
+100010103|Perro Fiel|193|62000000|/storage/shakira/100010103.mp3|/storage/shakira/images/album01.jpg|P:Danny,Romero,SACC10014|M:Nicky,Jam,SACC10016;M:Shakira,SACC10001|C:Shakira,SACC10001;C:Nicky,Jam,SACC10016
+100010104|Nada|219|38000000|/storage/shakira/100010104.mp3|/storage/shakira/images/album01.jpg|P:Shakira,SACC10001;P:Luis,Fernando Ochoa,SACC10013|M:Shakira,SACC10001;M:Session,Musician,SACC10017|C:Shakira,SACC10001
+100010105|Coconut Tree|184|29000000|/storage/shakira/100010105.mp3|/storage/shakira/images/album01.jpg|P:Shakira,SACC10001|M:Session,Musician,SACC10017|C:Shakira,SACC10001
+100020101|Ultima|198|12000000|/storage/shakira/100020101.mp3|/storage/shakira/images/album02.jpg|P:Shakira,SACC10001;P:Lex,Luthor,SACC10019|M:Shakira,SACC10001;M:Session,Musician,SACC10017|C:Shakira,SACC10001
+100020102|Te Felicito|212|95000000|/storage/shakira/100020102.mp3|/storage/shakira/images/album02.jpg|P:Rauw,Alejandro,SACC10020;P:Keityn,SACC10018|M:Shakira,SACC10001;M:Rauw,Alejandro,SACC10020|C:Shakira,SACC10001;C:Rauw,Alejandro,SACC10020
+100020103|Monotonia|189|78000000|/storage/shakira/100020103.mp3|/storage/shakira/images/album02.jpg|P:Ozuna,SACC10021;P:Keityn,SACC10018|M:Shakira,SACC10001;M:Ozuna,SACC10021|C:Shakira,SACC10001;C:Ozuna,SACC10021
+100020201|Rojo|176|95000000|/storage/j_balvin/100020201.mp3|/storage/j_balvin/images/album01.jpg|P:Sky,Rompiendo,SACC10011|M:J Balvin,SACC10002|C:J Balvin,SACC10002;C:Sky,Rompiendo,SACC10011
+100020202|Morado|189|78000000|/storage/j_balvin/100020202.mp3|/storage/j_balvin/images/album01.jpg|P:Sky,Rompiendo,SACC10011|M:J Balvin,SACC10002|C:J Balvin,SACC10002;C:Sky,Rompiendo,SACC10011
+100020203|Azul|167|71000000|/storage/j_balvin/100020203.mp3|/storage/j_balvin/images/album01.jpg|P:Sky,Rompiendo,SACC10011|M:J Balvin,SACC10002;M:Session,Musician,SACC10016|C:J Balvin,SACC10002
+100020204|Amarillo|201|83000000|/storage/j_balvin/100020204.mp3|/storage/j_balvin/images/album01.jpg|P:Sky,Rompiendo,SACC10011|M:J Balvin,SACC10002|C:J Balvin,SACC10002;C:Keityn,SACC10018
+100020205|Verde|178|69000000|/storage/j_balvin/100020205.mp3|/storage/j_balvin/images/album01.jpg|P:Sky,Rompiendo,SACC10011|M:J Balvin,SACC10002;M:Session,Musician,SACC10017|C:J Balvin,SACC10002
+100030101|TQG|203|120000000|/storage/karol_g/100030101.mp3|/storage/karol_g/images/album01.jpg|P:Ovy,On The Drums,SACC10012|M:Karol G,SACC10003;M:Shakira,SACC10001|C:Karol G,SACC10003;C:Shakira,SACC10001;C:Keityn,SACC10018
+100030102|Provenza|164|98000000|/storage/karol_g/100030102.mp3|/storage/karol_g/images/album01.jpg|P:Ovy,On The Drums,SACC10012|M:Karol G,SACC10003|C:Karol G,SACC10003;C:Ovy,On The Drums,SACC10012
+100030103|Cairo|186|76000000|/storage/karol_g/100030103.mp3|/storage/karol_g/images/album01.jpg|P:Ovy,On The Drums,SACC10012|M:Karol G,SACC10003;M:Omar,Khouri,SACC10022|C:Karol G,SACC10003;C:Keityn,SACC10018
+100030104|Gatubela|195|88000000|/storage/karol_g/100030104.mp3|/storage/karol_g/images/album01.jpg|P:DJ,Mao,SACC10023|M:Karol G,SACC10003;M:Maldy,SACC10024|C:Karol G,SACC10003;C:DJ,Mao,SACC10023
+100030105|X Si Volvemos|211|65000000|/storage/karol_g/100030105.mp3|/storage/karol_g/images/album01.jpg|P:Ovy,On The Drums,SACC10012|M:Karol G,SACC10003;M:Romeo,Santos,SACC10025|C:Karol G,SACC10003;C:Romeo,Santos,SACC10025
+100040101|Borro Cassette|225|67000000|/storage/maluma/100040101.mp3|/storage/maluma/images/album01.jpg|P:The,Rudeboyz,SACC10010|M:Maluma,SACC10004;M:Kevin,ADG,SACC10026|C:Maluma,SACC10004;C:Keityn,SACC10018
+100040102|El Perdedor|234|89000000|/storage/maluma/100040102.mp3|/storage/maluma/images/album01.jpg|P:The,Rudeboyz,SACC10010|M:Maluma,SACC10004;M:Chan,El Genio,SACC10027|C:Maluma,SACC10004;C:Chan,El Genio,SACC10027
+100040103|Sin Contrato|198|54000000|/storage/maluma/100040103.mp3|/storage/maluma/images/album01.jpg|P:J,Urbano,SACC10028|M:Maluma,SACC10004|C:Maluma,SACC10004
+100040104|Carnaval|207|61000000|/storage/maluma/100040104.mp3|/storage/maluma/images/album01.jpg|P:The,Rudeboyz,SACC10010|M:Maluma,SACC10004;M:Chan,El Genio,SACC10027|C:Maluma,SACC10004;C:The,Rudeboyz,SACC10010
+100050101|La Gota Fria|234|45000000|/storage/carlos_vives/100050101.mp3|/storage/carlos_vives/images/album01.jpg|P:Carlos,Vives,SACC10005|M:Carlos,Vives,SACC10005;M:Egildo,Cuadrado,SACC10029|C:Emiliano,Zuleta,SACC10030
+100050102|La Tierra del Olvido|198|52000000|/storage/carlos_vives/100050102.mp3|/storage/carlos_vives/images/album01.jpg|P:Carlos,Vives,SACC10005|M:Carlos,Vives,SACC10005;M:La,Provincia,SACC10031|C:Carlos,Vives,SACC10005;C:Ernesto,Orozco,SACC10032
+100050103|Volvi a Nacer|223|38000000|/storage/carlos_vives/100050103.mp3|/storage/carlos_vives/images/album01.jpg|P:Andres,Castro,SACC10033|M:Carlos,Vives,SACC10005;M:Andres,Castro,SACC10033|C:Carlos,Vives,SACC10005
+100050104|Pa Mayte|189|41000000|/storage/carlos_vives/100050104.mp3|/storage/carlos_vives/images/album01.jpg|P:Carlos,Vives,SACC10005|M:Carlos,Vives,SACC10005;M:Egildo,Cuadrado,SACC10029|C:Carlos,Vives,SACC10005
+100050105|Fruta Fresca|176|35000000|/storage/carlos_vives/100050105.mp3|/storage/carlos_vives/images/album01.jpg|P:Emilio,Estefan,SACC10034|M:Carlos,Vives,SACC10005;M:Session,Musician,SACC10016|C:Carlos,Vives,SACC10005
+100050106|Carito|201|39000000|/storage/carlos_vives/100050106.mp3|/storage/carlos_vives/images/album01.jpg|P:Carlos,Vives,SACC10005;P:Andres,Castro,SACC10033|M:Carlos,Vives,SACC10005|C:Carlos,Vives,SACC10005
+100050107|La Casa en el Aire|215|47000000|/storage/carlos_vives/100050107.mp3|/storage/carlos_vives/images/album01.jpg|P:Carlos,Vives,SACC10005|M:Carlos,Vives,SACC10005;M:La,Provincia,SACC10031|C:Rafael,Escalona,SACC10035
+100050108|Déjame Entrar|194|33000000|/storage/carlos_vives/100050108.mp3|/storage/carlos_vives/images/album01.jpg|P:Emilio,Estefan,SACC10034|M:Carlos,Vives,SACC10005;M:Andres,Castro,SACC10033|C:Carlos,Vives,SACC10005

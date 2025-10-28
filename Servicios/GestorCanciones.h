@@ -14,6 +14,7 @@ private:
 
     void redimensionar();
     void dividirLinea(string linea, string* datos);
+    void parsearCreditos(Cancion* cancion, const string& creditosStr);
 
 public:
     GestorCanciones();

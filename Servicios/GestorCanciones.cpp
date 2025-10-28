@@ -2,6 +2,7 @@
 #include "Servicios/MedidorRecursos.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <cstdlib>
 #include <ctime>
 
@@ -47,39 +48,100 @@ void GestorCanciones::dividirLinea(string linea, string* datos) {
 }
 
 bool GestorCanciones::cargarDesdeArchivo(string rutaArchivo) {
-    ifstream archivo(rutaArchivo.c_str());
+    ifstream archivo(rutaArchivo);
 
     if (!archivo.is_open()) {
-        cout << "[ERROR] No se pudo abrir el archivo: " << rutaArchivo << endl;
+        cout << "[ERROR] No se pudo abrir: " << rutaArchivo << endl;
         return false;
     }
 
     string linea;
-    getline(archivo, linea); // Saltar encabezado
+    getline(archivo, linea); // Saltar encabezados
 
+    int cargados = 0;
     while (getline(archivo, linea)) {
         if (linea.empty()) continue;
 
+        stringstream ss(linea);
         string datos[7];
-        dividirLinea(linea, datos);
 
-        long id = atol(datos[0].c_str());
-        int artista = atoi(datos[1].c_str());
-        int album = atoi(datos[2].c_str());
-        string nombre = datos[3];
-        int duracion = atoi(datos[4].c_str());
-        long reproducciones = atol(datos[5].c_str());
-        string rutaBase = datos[6];
+        // Leer campos básicos
+        for (int i = 0; i < 6; i++) {
+            getline(ss, datos[i], '|');
+        }
+        getline(ss, datos[6]);
 
-        Cancion* nueva = new Cancion(id, artista, album, nombre, duracion, reproducciones, rutaBase);
-        agregarCancion(nueva);
+        try {
+            long id = stol(datos[0]);
+            string nombre = datos[1];
+            int duracion = stoi(datos[2]);
+            long reproducciones = stol(datos[3]);
+            string rutaAudio = datos[4];
+            string rutaImagen = datos[5];
+            string creditos = datos[6];
+
+            Cancion* cancion = new Cancion(id, nombre, duracion, reproducciones, rutaAudio, rutaImagen, creditos);
+
+            // Parsear créditos
+            parsearCreditos(cancion, creditos);
+
+            agregarCancion(cancion);
+            cargados++;
+
+        } catch (...) {
+            cout << "[ERROR] Error al procesar cancion: " << linea << endl;
+        }
     }
 
     archivo.close();
-    cout << "[INFO] " << cantidadCanciones << " canciones cargadas correctamente." << endl;
+    cout << "[OK] Canciones cargadas: " << cargados << endl;
     return true;
 }
+void GestorCanciones::parsearCreditos(Cancion* cancion, const string& creditosStr) {
+    // Formato: P:Nombre,Apellido,Codigo|M:Nombre,Apellido,Codigo|C:Nombre,Apellido,Codigo
 
+    stringstream ss(creditosStr);
+    string categoriaStr;
+
+    while (getline(ss, categoriaStr, '|')) {
+        if (categoriaStr.empty()) continue;
+
+        // Obtener tipo de crédito
+        char tipoChar = categoriaStr[0];
+        string tipo;
+        if (tipoChar == 'P') tipo = "Productor";
+        else if (tipoChar == 'M') tipo = "Musico";
+        else if (tipoChar == 'C') tipo = "Compositor";
+        else continue;
+
+        // Saltar "P:" o "M:" o "C:"
+        string creditosDeCategoria = categoriaStr.substr(2);
+
+        // Separar múltiples créditos de la misma categoría
+        stringstream ss2(creditosDeCategoria);
+        string creditoIndividual;
+
+        while (getline(ss2, creditoIndividual, ';')) {
+            // Dividir por comas: Nombre,Apellido,Codigo
+            stringstream ss3(creditoIndividual);
+            string nombre, apellido, codigo;
+
+            getline(ss3, nombre, ',');
+            getline(ss3, apellido, ',');
+            getline(ss3, codigo, ',');
+
+            Credito* credito = new Credito(nombre, apellido, codigo, tipo);
+
+            if (tipo == "Productor") {
+                cancion->agregarProductor(credito);
+            } else if (tipo == "Musico") {
+                cancion->agregarMusico(credito);
+            } else if (tipo == "Compositor") {
+                cancion->agregarCompositor(credito);
+            }
+        }
+    }
+}
 Cancion* GestorCanciones::buscarCancion(string nombreCancion) {
     for (int i = 0; i < cantidadCanciones; i++) {
         if (canciones[i]->getNombre() == nombreCancion) {

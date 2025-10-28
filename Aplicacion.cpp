@@ -189,6 +189,9 @@ void Aplicacion::mostrarMenuUsuarioEstandar() {
                 MedidorRecursos::registrarIteracion();
                 cout << "\n=== CANCION ENCONTRADA ===" << endl;
                 cancion->mostrarInfo();
+                cancion->mostrarCreditos();
+                cancion->calcularRegaliasTotales();
+
 
                 cout << "\nQue desea hacer?" << endl;
                 cout << "1. Reproducir" << endl;
@@ -539,6 +542,8 @@ void Aplicacion::mostrarMenuUsuarioPremium() {
                 MedidorRecursos::registrarIteracion();
                 cout << "\n=== CANCION ENCONTRADA ===" << endl;
                 cancion->mostrarInfo();
+                cancion->mostrarCreditos();
+                cancion->calcularRegaliasTotales();
 
                 cout << "\n¿Que desea hacer?" << endl;
                 cout << "1. Reproducir" << endl;
